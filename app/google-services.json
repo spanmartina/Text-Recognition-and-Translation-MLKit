@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "868872617163",
+    "project_id": "test-f7405",
+    "storage_bucket": "test-f7405.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:868872617163:android:76346863f0add391c76f4e",
+        "android_client_info": {
+          "package_name": "com.example.ttapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpnTcLNPHRgU4S431Xjav7m2cT2wgVwMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

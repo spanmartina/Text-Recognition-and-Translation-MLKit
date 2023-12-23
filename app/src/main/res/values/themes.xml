@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<resources>-->
+
+<!--    <style name="Theme.TTApp" parent="android:Theme.Material.Light.NoActionBar" />-->
+<!--</resources>-->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+<!--    Base application theme.-->
+<style name="Theme.TTApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <!-- Primary brand color.
+    -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+    <item name="colorOnPrimary">@color/white</item>
+    <!--     Secondary brand color-->
+    <item name="colorSecondary">@color/colorSecondary</item>
+    <item name="colorSecondaryVariant">@color/colorSecondaryDark</item>
+    <item name="colorOnSecondary">@color/black</item>
+    <!--     Status bar color.-->
+    <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    <!--    Customize your theme here-->
+</style>
+
+
+<style name="NoActionBarTheme" parent="Theme.TTApp">
+    <item name="windowNoTitle">true</item>
+    <item name="windowActionBar">false</item>
+    <item name="colorPrimaryDark">@color/colorPrimary</item>
+    <item name="colorAccent">@color/black</item>
+</style>
+</resources>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/offWhite"
+    tools:context=".LandingPage">
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCapture"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Capture"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/white" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnUpload"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnCapture"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Upload"
+        android:padding="10dp"
+        android:textSize="18sp"
+
+        android:textColor="@color/white" />
+
+    <!-- Image Container -->
+    <ImageView
+        android:id="@+id/imageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/btnUpload"
+        android:layout_marginTop="16dp"
+        android:scaleType="fitCenter"
+        android:visibility="gone" />
+
+    <!-- Detect Text Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDetectText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Detect Text"
+        android:padding="16dp"
+        android:textSize="18sp"
+        android:backgroundTint="@color/colorSecondary"
+        android:textColor="@android:color/white"
+        android:visibility="gone" />
+
+</RelativeLayout>
