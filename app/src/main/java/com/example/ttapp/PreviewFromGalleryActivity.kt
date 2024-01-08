@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
@@ -19,42 +18,28 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.mlkit.vision.text.Text
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import com.google.gson.Gson
 import java.io.FileNotFoundException
 import java.io.IOException
 
-class PreviewActivity : AppCompatActivity() {
+class PreviewFromGalleryActivity : AppCompatActivity() {
+
     companion object {
-        const val EXTRA_IMAGE_PATH = "extra_image_path"
+        const val EXTRA_IMAGE_URI = "extra_image_uri"
     }
+//    val selectedImageUri: Uri? = intent.getParcelableExtra<Uri>(PreviewFromGalleryActivity.EXTRA_IMAGE_URI)
+//    val selectedImageUri: Uri? = intent.getStringExtra(EXTRA_IMAGE_URI)
+
     private lateinit var previewImageView: ImageView
     private lateinit var btnBack: Button
     private lateinit var btnTranslate: Button
 
-//    private var bitmap: Bitmap? = null
-    private lateinit var bitmap: Bitmap
+    private var bitmap: Bitmap? = null
     // Create a progress dialog
     private lateinit var progressBar: ProgressBar
 
     // AlertDialog to show download progress
     private var progressDialog: AlertDialog? = null
-
-
-    //***************
-    // Create an instance of the OcrHelper class
-    private val ocrHelper = OCR()
-
-    // Create an instance of the LanguageRecognizer class
-    private val languageRecognizer = LanguageRecognizer()
-
-    // Create an instance of the TextTranslator class
-//    private val textTranslator = TextTranslator(this)
-
     // Create a variable to store the OCR result
     private lateinit var ocrResultMap: Map<Rect, Text.TextBlock>
 
@@ -69,9 +54,17 @@ class PreviewActivity : AppCompatActivity() {
     // Job variable to keep track of the language identification job
     private lateinit var languageJob: Job
 
+    //***************
+    // Create an instance of the OcrHelper class
+    private val ocrHelper = OCR()
+
+    // Create an instance of the LanguageRecognizer class
+    private val languageRecognizer = LanguageRecognizer()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_preview)
+        setContentView(R.layout.activity_preview_from_gallery)
+
 
         previewImageView = findViewById(R.id.previewImageView)
         btnBack = findViewById(R.id.btnBack)
@@ -87,8 +80,11 @@ class PreviewActivity : AppCompatActivity() {
             // For example, you can call a function to start the translation process
             startTranslationProcess()
         }
-
-        val imagePath = intent.getStringExtra(EXTRA_IMAGE_PATH)
+        val imagePath = intent.getStringExtra(PreviewActivity.EXTRA_IMAGE_PATH)
+//        val selectedImageUri = intent.data
+        val selectedImageUriString = intent.getStringExtra(EXTRA_IMAGE_URI)
+        val selectedImageUri : Uri? =intent.getParcelableExtra(EXTRA_IMAGE_URI)
+//        val selectedImageUri = intent.getStringExtra(PreviewActivity.EXTRA_IMAGE_PATH)
 
         // Initialize the progress bar
         progressBar = ProgressBar(this).apply {
@@ -98,67 +94,40 @@ class PreviewActivity : AppCompatActivity() {
         // Show the progress dialog saying that translation is in progress
         Handler(Looper.getMainLooper()).post {
             progressDialog = AlertDialog.Builder(this)
-                .setTitle("Translating ...")
+                .setTitle("Processing image...")
                 .setCancelable(false)
                 .setView(progressBar)
                 .show()
         }
+        Log.e("Outside URI!!!", selectedImageUri.toString())
+//        Log.e("ImagePath!!!", imagePath.toString())
+        if (selectedImageUri != null) {
+//            if (selectedImageUriString != null) {
+            Log.e("URI!!!", selectedImageUri.toString())
+            bitmap = getBitmapFromUri(selectedImageUri)
 
-        if (imagePath != null) {
+            if (bitmap != null) {
+                displayBitmap(bitmap!!)
+                showToast("Gallery Image not null")
 
-            // Get the bitmap from the image file
-            bitmap = readImageFile(imagePath)
-
-            // Display the bitmap
-            displayBitmap(bitmap)
-            showToast("Image not null")
-
-            // Create a thread to run the OCR
-            // Perform OCR in a background thread
-            ocrJob = CoroutineScope(Dispatchers.Default).launch {
-                ocrResultMap = ocrHelper.performOcr(bitmap)
-
-                withContext(Dispatchers.Main) {
-                    // Handle the OCR result here
-                    processOcrResult(ocrResultMap)
+                // For now, let's just dismiss the progress dialog
+                Handler(Looper.getMainLooper()).post {
+                    progressDialog?.dismiss()
+                    progressDialog = null
                 }
-            }
-
-            // Wait for the OCR job to complete before starting the language identification job
-            ocrJob.invokeOnCompletion {
-                // Perform language identification in a separate background thread
-                languageJob = CoroutineScope(Dispatchers.Default).launch {
-                    languageCode = languageRecognizer.recognizeLanguage(ocrResultMap)
-
-                    withContext(Dispatchers.Main) {
-                        // Handle the language identification result here
-                        processLanguageResult(languageCode)
-                    }
-                }
-
-                /*
-                languageJob.invokeOnCompletion {
-                    // Perform translation in a separate background thread
-                    CoroutineScope(Dispatchers.Default).launch {
-                        translatedOcrResultMap = textTranslator.translateOcrResult(ocrResultMap, languageCode)
-
-                        withContext(Dispatchers.Main) {
-                            // Handle the translation result here
-                            processTranslationResult(translatedOcrResultMap)
-                        }
-                    }
-                }
-
-                 */
-
-
+            } else {
+                showToast("Failed to load bitmap from selected image URI.")
+                setResult(Activity.RESULT_CANCELED)
+                finish()
             }
         } else {
+            showToast("Selected image URI is null.")
             setResult(Activity.RESULT_CANCELED)
             finish()
         }
-
     }
+
+
     // Create a function to process the OCR result
     private fun processOcrResult(ocrResultMap: Map<Rect, Text.TextBlock>) {
         // Log the OCR result with Rect and text
@@ -219,13 +188,13 @@ class PreviewActivity : AppCompatActivity() {
             val ocrResult =  serializeOcrResult(ocrResultMap) //Gson().toJson(ocrResultMap)
 
             // Pass OCR result and language code to TextTranslator
-            val intent = Intent(this@PreviewActivity, TextTranslator::class.java)
+            val intent = Intent(this@PreviewFromGalleryActivity, TextTranslator::class.java)
             intent.putExtra("OCR_RESULT", ocrResult)
             intent.putExtra("LANGUAGE_CODE", languageCode)
             Log.d("Inside if", ocrResult)
             startActivity(intent)
         }
-    else {
+        else {
             showToast("OCR result or language code not initialized.")
         }
 
@@ -245,7 +214,7 @@ class PreviewActivity : AppCompatActivity() {
         }
     }
     // Create a function to read image file and return bitmap
-
+    /* PREVIOUS CODE
     private fun readImageFile(imagePath: String): Bitmap {
         val options = BitmapFactory.Options()
         options.inPreferredConfig = Bitmap.Config.ARGB_8888
@@ -253,7 +222,27 @@ class PreviewActivity : AppCompatActivity() {
         // Rotate the bitmap if required and return it
         return rotateBitmap(imagePath, bitmap)
     }
+     */
 
+    private fun readImageFile(filePath: String?): Bitmap? {
+        return try {
+            val options = BitmapFactory.Options().apply {
+                // Set inSampleSize to decode a scaled-down version of the image
+                inSampleSize = 4
+            }
+
+            // Decode the bitmap from the file path
+            BitmapFactory.decodeFile(filePath, options)
+        } catch (e: FileNotFoundException) {
+            // Handle the case where the file is not found
+            e.printStackTrace()
+            null
+        } catch (e: Exception) {
+            // Handle other exceptions during decoding
+            e.printStackTrace()
+            null
+        }
+    }
 
     // Create a function to display the bitmap
     private fun displayBitmap(bitmap: Bitmap) {
@@ -301,4 +290,5 @@ class PreviewActivity : AppCompatActivity() {
     private fun showToast(message: String){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
 }
