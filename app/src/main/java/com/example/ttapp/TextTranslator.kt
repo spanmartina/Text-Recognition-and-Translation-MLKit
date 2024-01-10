@@ -3,6 +3,7 @@ package com.example.ttapp
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -25,10 +26,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Locale
 
 //class TextTranslator : AppCompatActivity() {
     class TextTranslator : AppCompatActivity() {
 
+    private lateinit var sourceLanguageLabel: TextView
     //Detect Language initialization
     private lateinit var sourceLanguage: TextInputEditText
 //    private lateinit var btnCheckNow: Button
@@ -49,38 +52,35 @@ import kotlinx.coroutines.withContext
 
 //    private lateinit var translatorHelper: TranslatorHelper()
     // Job variable to keep track of the language identification job
-//    private lateinit var languageJob: Job
+    //    private lateinit var languageJob: Job
 
     // Create a variable to store the language detected
-//    private lateinit var languageCode: String
+    //    private lateinit var languageCode: String
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_translator)
 
+        sourceLanguageLabel = findViewById(R.id.sourceLanguageLabel)
         //Detect Language
         sourceLanguage = findViewById(R.id.sourceLanguage)
-//        btnCheckNow = findViewById(R.id.btnCheckNow)
-//        result = findViewById(R.id.result)
 
         //Translate Language
-//        targetLanguage = findViewById(R.id.targetLanguage)
         btnTranslate = findViewById(R.id.btnTranslate)
         translationResult = findViewById(R.id.translationResult)
 
-//        btnCheckNow.setOnClickListener {
-//            val langText: String = sourceLanguage.text.toString()
-//
-//            if (langText.isEmpty()) {
-//                showToast("Please enter text")
-//            } else {
-//                detectLang(langText)
-//            }
-//        }
-
         val ocrResult = intent.getStringExtra("OCR_RESULT")
         sourceLanguage.setText(ocrResult)
+
+        if (!ocrResult.isNullOrEmpty()) {
+            // Call translateText with the provided OCR result
+            Log.d("??? YES OCR", "No OCR result available.")
+            translateText(ocrResult)
+        } else {
+            showToast("No OCR result available.")
+            Log.d("??? NO OCR", "No OCR result available.")
+        }
 
         btnTranslate.setOnClickListener {
             val langText: String = sourceLanguage.text.toString()
@@ -89,56 +89,28 @@ import kotlinx.coroutines.withContext
                 showToast("Please enter text")
             } else {
                 translateText(langText)
-//                val detectedLanguageCode: String = result.text.toString()
-//
-//                if (detectedLanguageCode == "und") {
-//                    showToast("Cannot translate unidentified language")
-//                } else {
-//                    // Detect language and translate
-//                    languageJob = CoroutineScope(Dispatchers.Default).launch {
-//                        translatedText =
-//                            translatorHelper.detectAndTranslate(langText, detectedLanguageCode)
-//                        withContext(Dispatchers.Main) {
-//                            translationResult.text = "Translated Text: $translatedText"
-//                        }
-//                    }
-//                }
             }
         }
 
     }
 
-//    @SuppressLint("SetTextI18n")
-//    private fun detectLang(langText: String){
-//        val languageIdentifier:LanguageIdentifier=LanguageIdentification.getClient()
-//
-//        languageIdentifier.identifyLanguage(langText)
-//            .addOnSuccessListener { languageCode ->
-//                if (languageCode == "und") {
-//                    result.text="Can't identify language"
-//                } else {
-//                    result.text= languageCode
-//                }
-//            }
-//            .addOnFailureListener {
-//                result.text="Exception ${it.message}"
-//            }
-//
-//    }
     @SuppressLint("SetTextI18n")
     private fun translateText(langText: String) {
         translationJob = CoroutineScope(Dispatchers.Default).launch {
-            // Use the LanguageRecognizer to identify the language
             val detectedLanguageCode = languageRecognizer.detectLanguage(langText)
+            Log.d("??? inside detectedLanguageCode", "Language code: $detectedLanguageCode")
 
-//            withContext(Dispatchers.Main) {
-//                if (detectedLanguageCode == "und") {
-//                    showToast("Can't identify language")
-//                } else {
-//                    translationResult.setText(detectedLanguageCode)
-//                }
-//            }
-
+            withContext(Dispatchers.Main) {
+                if (detectedLanguageCode == "und") {
+                    showToast("Can't identify language")
+                } else {
+                    // Get language name from language code
+                    val languageName = getLanguageNameFromCode(detectedLanguageCode)
+                    Log.d("??? languageName", " $languageName")
+                    // Set the detected language to the TextView
+                    sourceLanguageLabel.text = languageName
+                }
+            }
             // Translate to English
             translatedText = translatorHelper.detectAndTranslate(langText, detectedLanguageCode)
 
@@ -149,5 +121,10 @@ import kotlinx.coroutines.withContext
     }
     private fun showToast(message: String){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun getLanguageNameFromCode(languageCode: String): String {
+        val locale = Locale(languageCode)
+        return locale.displayLanguage
     }
 }

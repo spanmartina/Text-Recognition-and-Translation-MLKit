@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 
 import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.TranslatorOptions
@@ -16,6 +17,7 @@ import com.google.mlkit.nl.translate.TranslatorOptions
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.common.model.RemoteModelManager
 import com.google.mlkit.nl.translate.TranslateRemoteModel
+import java.util.Locale
 
 class TranslatorHelper(private val context: Context) {
 
@@ -23,12 +25,14 @@ class TranslatorHelper(private val context: Context) {
     private var  sourceOptions: TranslatorOptions
     private var sourceTranslator: com.google.mlkit.nl.translate.Translator
     private val remoteModelManager = RemoteModelManager.getInstance()
+
+    // AlertDialog for download progress
     private var progressDialog: AlertDialog? = null
 
     init {
         // Initialize the source (spanish) translator
         sourceOptions = TranslatorOptions.Builder()
-            .setSourceLanguage(TranslateLanguage.SPANISH)  // Default source language (will be dynamically changed)
+            .setSourceLanguage(TranslateLanguage.fromLanguageTag("es").toString())  // Default source language (will be dynamically changed)
             .setTargetLanguage(TranslateLanguage.ENGLISH)
             .build()
 
@@ -38,7 +42,9 @@ class TranslatorHelper(private val context: Context) {
     // Function to set the source language dynamically
 //    fun setSourceLanguage(languageCode: String) {
 //        sourceOptions = TranslatorOptions.Builder()
-//            .setSourceLanguage(languageCode)
+////            .setSourceLanguage(getTranslateLanguageForCode(languageCode))
+//            .setSourceLanguage(TranslateLanguage.ITALIAN)
+//
 //            .setTargetLanguage(TranslateLanguage.ENGLISH)
 //            .build()
 //
@@ -46,17 +52,21 @@ class TranslatorHelper(private val context: Context) {
 //    }
 
 
+    // sourceLanguageCode is the language code in BCP-47 format, e.g., "es", "de", "fr", etc.
     private fun translateTextToEnglish(text: String, sourceLanguageCode: String): String {
-        // Check if the source language code is "es"
-        if (sourceLanguageCode != "es") {
-
-            return sourceLanguageCode
-        }
         // Check if the translation model is downloaded and available
         if (!isModelDownloaded(sourceLanguageCode)) {
             // Model not downloaded, download it and wait for completion
             downloadModel(sourceLanguageCode)
         }
+        // Set the source language dynamically
+        sourceOptions = TranslatorOptions.Builder()
+            .setSourceLanguage(TranslateLanguage.fromLanguageTag(sourceLanguageCode).toString())
+            .setTargetLanguage(TranslateLanguage.ENGLISH)
+            .build()
+
+        // Initialize the translator with the updated options
+        sourceTranslator = com.google.mlkit.nl.translate.Translation.getClient(sourceOptions)
 
         // Translate text
         val task = sourceTranslator.translate(text)
@@ -70,16 +80,16 @@ class TranslatorHelper(private val context: Context) {
         return Tasks.await(task)
     }
 
-    // Download the translation model for the given language code
+    // Download translation model for the given language code
     private fun downloadModel(languageCode: String) {
-// Create a progress dialog
+        // Create a progress dialog
         val progressBar = ProgressBar(context).apply {
             isIndeterminate = true
         }
 
         Handler(Looper.getMainLooper()).post {
             progressDialog = AlertDialog.Builder(context)
-                .setTitle("Downloading Translation Model (Please Be on Wifi)")
+                .setTitle("Downloading Translation Model (Requires Wi-Fi connection)")
                 .setCancelable(false)
                 .setView(progressBar)
                 .show()
@@ -97,39 +107,31 @@ class TranslatorHelper(private val context: Context) {
                 progressDialog?.dismiss()
                 progressDialog = null
             }
-
-            // Show a toast indicating successful download
             showDownloadToast("Translation Model Downloaded Successfully")
 
         } catch (e: Exception) {
-
             // Dismiss the progress dialog on download failure
             Handler(Looper.getMainLooper()).post {
                 progressDialog?.dismiss()
                 progressDialog = null
             }
-
-            // Show a toast indicating download failure
             showDownloadToast("Translation Model Download Failed")
-
         }
     }
 
-    // Show toast on the main UI thread
     private fun showDownloadToast(message: String) {
         (context as? Activity)?.runOnUiThread {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
 
-
     fun detectAndTranslate(text: String, languageCode: String ) : String{
-//        fun translateSourceText(text: String, languageCode: String ) : String{
+//        setSourceLanguage(languageCode)
         return try {
+            Log.d("??? detectAndTranslate", "Language detected: $languageCode is and the text: $text  ")
             translateTextToEnglish(text, languageCode)
         } catch (e: Exception) {
             "Translation failed: ${e.message}"
         }
     }
-
 }
