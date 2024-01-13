@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ocrLayout"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:baselineAligned="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:id="@+id/btnCamera"
+            android:padding="12dp"
+            android:layout_marginEnd="8dp">
+
+            <ImageView
+                android:id="@+id/cameraImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/baseline_camera_24"
+                android:layout_centerHorizontal="true"
+                app:tint="@color/colorPrimary"
+                android:contentDescription="Camera icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cameraImage"
+                android:text="Camera"
+                android:padding="10dp"
+                android:textSize="24sp"
+
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:id="@+id/btnUpload"
+            android:padding="12dp"
+            android:layout_marginStart="8dp">
+
+            <ImageView
+                android:id="@+id/galleryImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/baseline_image_24"
+                android:layout_centerHorizontal="true"
+                app:tint="@color/colorPrimary"
+                android:contentDescription="Gallery icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/galleryImage"
+                android:text="Upload"
+                android:padding="10dp"
+                android:textSize="24sp"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+</LinearLayout>

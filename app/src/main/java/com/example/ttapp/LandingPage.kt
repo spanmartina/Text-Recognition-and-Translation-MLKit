@@ -1,39 +1,23 @@
 package com.example.ttapp
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.android.material.button.MaterialButton
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
-import android.widget.ImageView
+import android.widget.RelativeLayout
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.ttapp.databinding.ActivityLandingPageBinding
-class LandingPage : AppCompatActivity() {
+import androidx.cardview.widget.CardView
 
-    private lateinit var viewBinding: ActivityLandingPageBinding
-    private lateinit var btnUpload: MaterialButton
-    private lateinit var btnCapture: MaterialButton
-    private lateinit var imageContainer: ImageView
-    private lateinit var btnDetectText: MaterialButton
-
-
-        //to handle the result of Camera/Gallery permission
-//        private  val STORAGE_REQUEST_CODE = 100
-    //    private lateinit var storagePermission: Array<String>
-
-
+    class LandingPage : AppCompatActivity() {
+    private lateinit var ocrCard: CardView
     private var imageUri: Uri? = null
-    private val pickImageLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val data: Intent? = result.data
                 imageUri = data?.data
-                // Now, you can do something with the selected image URI
-                // For example, you might want to display the image or extract text from it
-                // ...
-                //Start the PreviewActivity with the selected image URI
                 startPreviewActivity(imageUri)
             }
         }
@@ -42,26 +26,57 @@ class LandingPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing_page)
 
-        // Initialize views
-        btnUpload = findViewById(R.id.btnUpload)
-        btnCapture = findViewById(R.id.btnCapture)
-        imageContainer = findViewById(R.id.imageContainer)
-        btnDetectText = findViewById(R.id.btnDetectText)
+        //OCR card view
+        ocrCard = findViewById(R.id.ocrCard)
 
-        //init array of permission required for Storage
-//        storagePermission = arrayOf(Manifest.permission.)
-
-        // Set click listener for the Upload button
-        btnUpload.setOnClickListener {
-            pickImageFromGallery()
+        ocrCard.setOnClickListener {
+            showOcrSelectionDialog()
         }
 
-        // Set click listener for the Capture button
-        btnCapture.setOnClickListener {
-            // Open CameraActivity when the "Capture" button is pressed
-            val intent = Intent(this@LandingPage, CameraActivity::class.java)
+        //Translator
+        val translatorCard: CardView = findViewById(R.id.translatorCard)
+        translatorCard.setOnClickListener {
+            val intent = Intent(this@LandingPage, TextTranslator::class.java)
             startActivity(intent)
         }
+
+        //TODO
+        //Saved
+//        val savedCard: CardView = findViewById(R.id.savedCard)
+//        savedCard.setOnClickListener {
+//            val intent = Intent(this@LandingPage, BackupActivity::class.java)
+//            startActivity(intent)
+//        }
+        //Settings
+//        val settingsCard: CardView = findViewById(R.id.settingsCard)
+//        settingsCard.setOnClickListener {
+//            val intent = Intent(this@LandingPage, SettingsActivity::class.java)
+//            startActivity(intent)
+//        }
+
+    }
+
+    private fun showOcrSelectionDialog() {
+        val btnUpload: RelativeLayout
+        val btnCamera: RelativeLayout
+
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_ocr_selection)
+
+        btnCamera = dialog.findViewById(R.id.btnCamera)
+        btnUpload = dialog.findViewById(R.id.btnUpload)
+
+        btnUpload.setOnClickListener {
+            pickImageFromGallery()
+            dialog.dismiss()
+        }
+
+        btnCamera.setOnClickListener {
+            val intent = Intent(this@LandingPage, CameraActivity::class.java)
+            startActivity(intent)
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun pickImageFromGallery() {

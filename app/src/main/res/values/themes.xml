@@ -19,8 +19,23 @@
     <!--     Status bar color.-->
     <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     <!--    Customize your theme here-->
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
 </style>
 
+    <style name="Theme.NavbarActivity" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryDark</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
 
 <style name="NoActionBarTheme" parent="Theme.TTApp">
     <item name="windowNoTitle">true</item>
