@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="20dp">
 
 <!--    Logo-->
         <LinearLayout
@@ -132,7 +132,7 @@
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:padding="5dp"
@@ -204,46 +204,22 @@
 
     </LinearLayout>
 
-
-
-        <!-- Main Content -->
-<!--
-    <LinearLayout
-        android:layout_below="@+id/languageLabelsLayout"
+<!--    Bottom Navigation-->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        android:gravity="center">
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bottom_background"
+        android:elevation="2dp"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/item_selector"
+        app:itemRippleColor="@android:color/transparent"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/bottom_menu" />
 
-        <EditText
-            android:id="@+id/sourceLanguage"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:hint="Enter text"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
-
-        <EditText
-            android:id="@+id/translationResult"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_weight="3"
-            android:hint="Translation Result"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/btnTranslate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Translate"
-            android:layout_margin="10dp"/>
-    </LinearLayout>
--->
 </RelativeLayout>

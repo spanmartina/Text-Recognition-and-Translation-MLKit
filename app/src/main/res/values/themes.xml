@@ -23,19 +23,24 @@
     <item name="windowNoTitle">true</item>
 </style>
 
-    <style name="Theme.NavbarActivity" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorSecondaryVariant">@color/colorSecondaryDark</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-    </style>
+<!--    <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">-->
+<!--        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>-->
+<!--        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>-->
+<!--    </style>-->
+
+<!--    <style name="Theme.NavbarActivity" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+<!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>-->
+<!--        <item name="colorOnPrimary">@color/white</item>-->
+<!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
+<!--        <item name="colorSecondary">@color/colorSecondary</item>-->
+<!--        <item name="colorSecondaryVariant">@color/colorSecondaryDark</item>-->
+<!--        <item name="colorOnSecondary">@color/black</item>-->
+<!--        &lt;!&ndash; Status bar color. &ndash;&gt;-->
+<!--        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--    </style>-->
 
 <style name="NoActionBarTheme" parent="Theme.TTApp">
     <item name="windowNoTitle">true</item>

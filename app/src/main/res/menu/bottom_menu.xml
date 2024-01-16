@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_home"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home"
+        android:iconTint="@color/white"/>
+    <item
+        android:id="@+id/bottom_ocr"
+        android:icon="@drawable/baseline_image_search_24"
+        android:title="OCR" />
+    <item
+        android:id="@+id/bottom_translator"
+        android:icon="@drawable/baseline_translate_24"
+        android:title="Translator" />
+
+</menu>

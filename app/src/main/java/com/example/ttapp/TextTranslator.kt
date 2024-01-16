@@ -1,6 +1,7 @@
 package com.example.ttapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Locale
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 //class TextTranslator : AppCompatActivity() {
     class TextTranslator : AppCompatActivity() {
@@ -50,13 +52,6 @@ import java.util.Locale
     //Initialize the language detection
     private val languageRecognizer = LanguageRecognizer()
 
-//    private lateinit var translatorHelper: TranslatorHelper()
-    // Job variable to keep track of the language identification job
-    //    private lateinit var languageJob: Job
-
-    // Create a variable to store the language detected
-    //    private lateinit var languageCode: String
-
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +64,11 @@ import java.util.Locale
         //Translate Language
         btnTranslate = findViewById(R.id.btnTranslate)
         translationResult = findViewById(R.id.translationResult)
+
+        //Bottom Nav
+        var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        bottomNavigationView.selectedItemId = R.id.bottom_translator
+
 
         val ocrResult = intent.getStringExtra("OCR_RESULT")
         sourceLanguage.setText(ocrResult)
@@ -89,6 +89,26 @@ import java.util.Locale
                 showToast("Please enter text")
             } else {
                 translateText(langText)
+            }
+        }
+
+        //Bottom Nav
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.bottom_translator -> true
+                R.id.bottom_home -> {
+                    startActivity(Intent(applicationContext, LandingPage::class.java))
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    finish()
+                    true
+                }
+                R.id.bottom_ocr -> {
+                    startActivity(Intent(applicationContext, CameraActivity::class.java))
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    finish()
+                    true
+                }
+                else -> false
             }
         }
 
