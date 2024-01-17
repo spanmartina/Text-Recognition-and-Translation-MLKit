@@ -104,7 +104,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
                 }
                 R.id.bottom_ocr -> {
                     startActivity(Intent(applicationContext, CameraActivity::class.java))
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left)
                     finish()
                     true
                 }

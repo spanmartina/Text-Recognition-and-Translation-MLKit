@@ -5,6 +5,7 @@
     <queries>
         <intent>
             <action android:name="android.intent.action.PICK" />
+
             <data android:mimeType="image/*" />
         </intent>
     </queries>
@@ -31,6 +32,24 @@
         android:theme="@style/Theme.TTApp"
         tools:targetApi="31">
         <activity
+            android:name=".SignInActivity"
+            android:exported="false">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".PreviewFromGalleryActivity"
             android:exported="false" />
         <activity
@@ -38,12 +57,12 @@
             android:exported="false" />
         <activity
             android:name=".LandingPage"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".CameraActivity"

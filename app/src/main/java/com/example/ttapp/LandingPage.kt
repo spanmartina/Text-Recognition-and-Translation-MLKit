@@ -8,13 +8,16 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 
     class LandingPage : AppCompatActivity() {
-    private lateinit var ocrCard: CardView
-    private var imageUri: Uri? = null
-    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        private lateinit var nameTextView: TextView
+        private lateinit var usernameTextView: TextView
+        private lateinit var ocrCard: CardView
+        private var imageUri: Uri? = null
+        private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val data: Intent? = result.data
                 imageUri = data?.data
@@ -22,23 +25,35 @@ import androidx.cardview.widget.CardView
             }
         }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing_page)
 
-        //OCR card view
-        ocrCard = findViewById(R.id.ocrCard)
+            nameTextView = findViewById(R.id.name)
+            usernameTextView = findViewById(R.id.username)
 
-        ocrCard.setOnClickListener {
-            showOcrSelectionDialog()
-        }
+            // Retrieve data from LoginActivity
+            val name = intent.getStringExtra("name")
+            val username = intent.getStringExtra("username")
 
-        //Translator
-        val translatorCard: CardView = findViewById(R.id.translatorCard)
-        translatorCard.setOnClickListener {
-            val intent = Intent(this@LandingPage, TextTranslator::class.java)
-            startActivity(intent)
-        }
+            // Update UI
+            nameTextView.text = name
+            usernameTextView.text = "@$username"
+
+
+            //OCR card view
+            ocrCard = findViewById(R.id.ocrCard)
+
+            ocrCard.setOnClickListener {
+                showOcrSelectionDialog()
+            }
+
+            //Translator
+            val translatorCard: CardView = findViewById(R.id.translatorCard)
+            translatorCard.setOnClickListener {
+                val intent = Intent(this@LandingPage, TextTranslator::class.java)
+                startActivity(intent)
+            }
 
         //TODO
         //Saved

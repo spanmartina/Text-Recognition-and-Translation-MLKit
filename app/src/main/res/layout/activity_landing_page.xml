@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/constraintLayout"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="80dp">
 
         <ImageView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="90dp"
             android:id="@+id/profileImage"
             android:src="@drawable/user_profile"
