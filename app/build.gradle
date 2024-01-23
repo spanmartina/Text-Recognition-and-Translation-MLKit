@@ -65,6 +65,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-database-ktx:20.1.0'
+    implementation 'com.google.firebase:firebase-database:20.0.1'
+//    implementation 'com.google.firebase:firebase-auth:22.3.1'
+    implementation 'com.google.firebase:firebase-auth:20.0.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -98,7 +101,10 @@ dependencies {
     //GSON -- 21/12 (convert the Map<Rect, Text.TextBlock> to a JSON string)
     implementation 'com.google.code.gson:gson:2.8.9'
 
-
+    //Firebase
+//    implementation 'com.google.firebase:firebase-database:20.3.0'
+//    implementation platform('com.google.firebase:firebase-bom:32.7.1')
+//    implementation 'com.google.firebase:firebase-database'
     // Firebase Bom 09/11
 //    implementation platform('com.google.firebase:firebase-bom:32.5.0')
 //    implementation 'com.google.firebase:firebase-analytics'

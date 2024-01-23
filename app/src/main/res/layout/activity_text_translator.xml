@@ -45,7 +45,7 @@
         <!-- Language Labels-->
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:weightSum="3"
@@ -138,7 +138,7 @@
             android:padding="5dp"
             app:hintEnabled="false"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="190dp"
             app:boxBackgroundMode="none"
             android:elevation="8dp"
             android:background="@drawable/rounded_bg">
@@ -154,7 +154,7 @@
                 android:textColor="@color/black"
                 android:textSize="19sp"
                 android:gravity="top"
-                android:textColorHint="@color/colorSecondary"
+                android:textColorHint="@color/endless_river_end"
                 android:background="@android:color/white"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -166,7 +166,7 @@
             android:padding="5dp"
             app:hintEnabled="false"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="190dp"
             app:boxBackgroundMode="none"
             android:elevation="8dp"
             android:background="@drawable/rounded_bg">
@@ -182,26 +182,53 @@
                 android:textColor="@color/black"
                 android:textSize="19sp"
                 android:gravity="top"
-                android:textColorHint="@color/colorSecondary"
+                android:textColorHint="@color/endless_river_end"
                 android:background="@android:color/white"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.button.MaterialButton
+<!--        <com.google.android.material.button.MaterialButton-->
+<!--            android:id="@+id/btnTranslate"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="20dp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:background="@color/gunmetal"-->
+<!--            android:text="Translate"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="19sp" />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
             android:id="@+id/btnTranslate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@color/gunmetal"
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:layout_height="60dp"
             android:text="Translate"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="19sp" />
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
 
+            android:backgroundTint="@color/frost_end"
+            app:cornerRadius = "20dp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnBackup"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/gray"
+            app:tint = "@color/white"
+            android:src="@drawable/baseline_add_24" />
+    </LinearLayout>
     </LinearLayout>
 
 <!--    Bottom Navigation-->

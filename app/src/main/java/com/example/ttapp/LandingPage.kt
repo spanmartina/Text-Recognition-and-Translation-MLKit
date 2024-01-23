@@ -1,5 +1,6 @@
 package com.example.ttapp
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,8 +12,18 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
-    class LandingPage : AppCompatActivity() {
+class LandingPage : AppCompatActivity() {
+        private lateinit var auth: FirebaseAuth
+        private lateinit var database: FirebaseDatabase
+        private lateinit var reference: DatabaseReference
+
         private lateinit var nameTextView: TextView
         private lateinit var usernameTextView: TextView
         private lateinit var ocrCard: CardView
@@ -32,45 +43,43 @@ import androidx.cardview.widget.CardView
             nameTextView = findViewById(R.id.name)
             usernameTextView = findViewById(R.id.username)
 
-            // Retrieve data from LoginActivity
-            val name = intent.getStringExtra("name")
-            val username = intent.getStringExtra("username")
+            // Initialize Firebase components
+            auth = FirebaseAuth.getInstance()
+            database = FirebaseDatabase.getInstance()
+            reference = database.reference.child("users")
 
-            // Update UI
-            nameTextView.text = name
-            usernameTextView.text = "@$username"
+            // Fetch data from Realtime Database
+            val currentUser = auth.currentUser
+            currentUser?.uid?.let { userId ->
+                reference.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
+                    @SuppressLint("SetTextI18n")
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val name = snapshot.child("name").getValue(String::class.java)
+                        val username = snapshot.child("username").getValue(String::class.java)
 
+                        // Update UI
+                        nameTextView.text = name
+                        usernameTextView.text = username
+                    }
 
+                    override fun onCancelled(error: DatabaseError) {
+                        // Handle the error
+                    }
+                })
+            }
             //OCR card view
             ocrCard = findViewById(R.id.ocrCard)
 
             ocrCard.setOnClickListener {
                 showOcrSelectionDialog()
             }
-
             //Translator
             val translatorCard: CardView = findViewById(R.id.translatorCard)
             translatorCard.setOnClickListener {
                 val intent = Intent(this@LandingPage, TextTranslator::class.java)
                 startActivity(intent)
             }
-
-        //TODO
-        //Saved
-//        val savedCard: CardView = findViewById(R.id.savedCard)
-//        savedCard.setOnClickListener {
-//            val intent = Intent(this@LandingPage, BackupActivity::class.java)
-//            startActivity(intent)
-//        }
-        //Settings
-//        val settingsCard: CardView = findViewById(R.id.settingsCard)
-//        settingsCard.setOnClickListener {
-//            val intent = Intent(this@LandingPage, SettingsActivity::class.java)
-//            startActivity(intent)
-//        }
-
     }
-
     private fun showOcrSelectionDialog() {
         val btnUpload: RelativeLayout
         val btnCamera: RelativeLayout
@@ -96,7 +105,6 @@ import androidx.cardview.widget.CardView
 
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-//        intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "image/*"
         if (intent.resolveActivity(packageManager) != null) {
             // Launch the intent

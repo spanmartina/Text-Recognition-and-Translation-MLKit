@@ -6,22 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
-//import com.google.mlkit.nl.languageid.LanguageIdentification
-//import com.google.mlkit.nl.languageid.LanguageIdentificationOptions
-//import com.google.mlkit.nl.languageid.LanguageIdentifier
-
-//import com.google.mlkit.nl.translate.TranslateLanguage
-//import com.google.mlkit.nl.translate.Translation
-////import com.google.mlkit.nl.translate.TranslationOptions
-//import com.google.mlkit.nl.translate.Translator
-
-////////**********8
-// Import coroutines dependencies
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,24 +16,25 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Locale
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.ttapp.databinding.ActivityTextTranslatorBinding
 
-//class TextTranslator : AppCompatActivity() {
-    class TextTranslator : AppCompatActivity() {
+class TextTranslator : AppCompatActivity() {
 
+    private lateinit var viewBinding: ActivityTextTranslatorBinding
     private lateinit var sourceLanguageLabel: TextView
+    private lateinit var targetLanguageLabel: TextView
+
     //Detect Language initialization
     private lateinit var sourceLanguage: TextInputEditText
-//    private lateinit var btnCheckNow: Button
-    private lateinit var result: TextView
-
-    //Translate Language initialization
-//    private lateinit var targetLanguage: TextView
-    private lateinit var btnTranslate: MaterialButton
-//    private lateinit var translationResult: TextView
+    private lateinit var btnTranslate: Button
     private lateinit var translationResult: TextInputEditText
     private lateinit var translatedText: String
     // Job variable to keep track of the translation job
     private lateinit var translationJob: Job
+    //Backup btn
+    private lateinit var btnBackup: FloatingActionButton
+
     //initialize TranslatorHelper
     private val translatorHelper = TranslatorHelper(this)
     //Initialize the language detection
@@ -55,15 +43,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_text_translator)
+//        setContentView(R.layout.activity_text_translator)
+
+        //Data binding
+        viewBinding = ActivityTextTranslatorBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
 
         sourceLanguageLabel = findViewById(R.id.sourceLanguageLabel)
+        targetLanguageLabel = findViewById(R.id.targetLanguageLabel)
         //Detect Language
         sourceLanguage = findViewById(R.id.sourceLanguage)
 
         //Translate Language
         btnTranslate = findViewById(R.id.btnTranslate)
         translationResult = findViewById(R.id.translationResult)
+        btnBackup = findViewById(R.id.btnBackup)
+
+//        val BACKUP_REQUEST_CODE = 1
 
         //Bottom Nav
         var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
@@ -90,6 +86,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
             } else {
                 translateText(langText)
             }
+        }
+
+        viewBinding.btnBackup.setOnClickListener {
+            Log.d("BACKUP","??? btm backup clicked.")
+            val intent = Intent(this, BackupActivity::class.java)
+
+            // place data in intent
+            intent.putExtra("sourceLang", sourceLanguageLabel.text.toString())
+            intent.putExtra("targetLang", targetLanguageLabel.text.toString())
+            intent.putExtra("sourceText", sourceLanguage.text.toString())
+            intent.putExtra("targetText", translationResult.text.toString())
+
+//            startActivityForResult(intent, BACKUP_REQUEST_CODE)
+            startActivity(intent)
         }
 
         //Bottom Nav
@@ -142,8 +152,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
     private fun showToast(message: String){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
-    fun getLanguageNameFromCode(languageCode: String): String {
+    private fun getLanguageNameFromCode(languageCode: String): String {
         val locale = Locale(languageCode)
         return locale.displayLanguage
     }

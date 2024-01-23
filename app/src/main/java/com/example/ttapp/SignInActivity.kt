@@ -2,32 +2,37 @@ package com.example.ttapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 class SignInActivity : AppCompatActivity() {
 
-    private lateinit var loginUsername: EditText
+    private lateinit var loginEmail: EditText
     private lateinit var loginPassword: EditText
     private lateinit var loginButton: Button
     private lateinit var redirectText: TextView
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
-        loginUsername = findViewById(R.id.login_username)
+        loginEmail = findViewById(R.id.login_email)
         loginPassword = findViewById(R.id.login_password)
         loginButton = findViewById(R.id.login_button)
         redirectText = findViewById(R.id.redirectText)
 
+        auth = FirebaseAuth.getInstance()
+
         loginButton.setOnClickListener {
             if (validateUsername() and validatePassword()) {
-                checkUser()
+                signInUser()
             }
         }
 
@@ -38,12 +43,12 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun validateUsername(): Boolean {
-        val valText = loginUsername.text.toString()
+        val valText =  loginEmail.text.toString()
         return if (valText.isEmpty()) {
-            loginUsername.error = "Username cannot be empty"
+            loginEmail.error = "Email field cannot be empty"
             false
         } else {
-            loginUsername.error = null
+            loginEmail.error = null
             true
         }
     }
@@ -58,43 +63,34 @@ class SignInActivity : AppCompatActivity() {
             true
         }
     }
-    private fun checkUser() {
-        val userUsername = loginUsername.text.toString().trim()
-        val userPassword = loginPassword.text.toString().trim()
 
-        val reference: DatabaseReference = FirebaseDatabase.getInstance().getReference("users")
-        val checkUserDatabase: Query = reference.orderByChild("username").equalTo(userUsername)
+    private fun signInUser() {
+        val email = loginEmail.text.toString().trim()
+        val password = loginPassword.text.toString().trim()
 
-        checkUserDatabase.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    loginUsername.error = null
-                    val passwordFromDB = snapshot.child(userUsername).child("password").getValue(String::class.java)
-                    if (passwordFromDB == userPassword) {
-                        loginUsername.error = null
-                        val nameFromDB = snapshot.child(userUsername).child("name").getValue(String::class.java)
-                        val emailFromDB = snapshot.child(userUsername).child("email").getValue(String::class.java)
-                        val usernameFromDB = snapshot.child(userUsername).child("username").getValue(String::class.java)
-
-                        val intent = Intent(this@SignInActivity, LandingPage::class.java)
-                        intent.putExtra("name", nameFromDB)
-                        intent.putExtra("email", emailFromDB)
-                        intent.putExtra("username", usernameFromDB)
-                        intent.putExtra("password", passwordFromDB)
-                        startActivity(intent)
-                        finish() // Close SignInActivity to prevent going back
-                    } else {
-                        loginPassword.error = "Invalid Credentials"
-                        loginPassword.requestFocus()
-                    }
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, navigate to the landing page
+                    val intent = Intent(this@SignInActivity, LandingPage::class.java)
+                    startActivity(intent)
+                    finish()
                 } else {
-                    loginUsername.error = "User not found."
-                    loginUsername.requestFocus()
+                    // If sign in fails, display a message to the user.
+                    when (task.exception) {
+                        is FirebaseAuthInvalidUserException -> {
+                            loginEmail.error = "User not found"
+                            loginEmail.requestFocus()
+                        }
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            loginPassword.error = "Invalid password"
+                            loginPassword.requestFocus()
+                        }
+                        else -> {
+                            Log.d("Authentication failed", "${task.exception?.message}")
+                        }
+                    }
                 }
             }
-
-            override fun onCancelled(error: DatabaseError) {}
-        })
     }
-
 }

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/auth_bkg"
+    tools:context=".BackupActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:padding="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Backup"
+                android:textColor="@color/frost_end"
+                android:textStyle="bold"
+                android:textSize="24dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"/>
+            <EditText
+                android:id="@+id/fileName"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/auth_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:maxLines="1"
+                android:hint="Enter file name"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/colorPrimaryDark"/>
+            <EditText
+                android:id="@+id/sourceLang"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/auth_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:hint="Source language"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/colorPrimaryDark"/>
+            <EditText
+                android:id="@+id/targetLang"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/auth_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:hint="Target language"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/colorPrimaryDark"/>
+            <EditText
+                android:id="@+id/sourceText"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/auth_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:hint="Source text"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/colorPrimaryDark"/>
+            <EditText
+                android:id="@+id/targetText"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/auth_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:hint="Target text"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/colorPrimaryDark"/>
+            <Button
+                android:id="@+id/btnBackup"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Save"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"
+                app:cornerRadius = "20dp"
+                />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</ScrollView>
