@@ -71,6 +71,8 @@ class SignUpActivity : AppCompatActivity() {
                                         showToast("Successful Sign Up!")
                                         val intent = Intent(this@SignUpActivity, LandingPage::class.java)
                                         startActivity(intent)
+                                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                                        finish()
                                     }
                                     .addOnFailureListener {
                                         showToast("Failed to Sign Up!")
@@ -93,6 +95,8 @@ class SignUpActivity : AppCompatActivity() {
         redirectText.setOnClickListener {
             val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            finish()
         }
     }
 

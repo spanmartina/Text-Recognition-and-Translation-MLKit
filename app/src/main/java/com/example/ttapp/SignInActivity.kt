@@ -39,6 +39,8 @@ class SignInActivity : AppCompatActivity() {
         redirectText.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            finish()
         }
     }
 
@@ -74,6 +76,7 @@ class SignInActivity : AppCompatActivity() {
                     // Sign in success, navigate to the landing page
                     val intent = Intent(this@SignInActivity, LandingPage::class.java)
                     startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.

@@ -98,7 +98,7 @@ class PreviewActivity : AppCompatActivity() {
         // Show the progress dialog saying that translation is in progress
         Handler(Looper.getMainLooper()).post {
             progressDialog = AlertDialog.Builder(this)
-                .setTitle("Translating ...")
+                .setTitle("Processing image...")
                 .setCancelable(false)
                 .setView(progressBar)
                 .show()
@@ -224,6 +224,8 @@ class PreviewActivity : AppCompatActivity() {
             intent.putExtra("LANGUAGE_CODE", languageCode)
             Log.d("Inside if", ocrResult)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            finish()
         }
     else {
             showToast("OCR result or language code not initialized.")

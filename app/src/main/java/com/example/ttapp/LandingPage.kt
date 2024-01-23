@@ -78,6 +78,8 @@ class LandingPage : AppCompatActivity() {
             translatorCard.setOnClickListener {
                 val intent = Intent(this@LandingPage, TextTranslator::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                finish()
             }
     }
     private fun showOcrSelectionDialog() {
@@ -98,6 +100,8 @@ class LandingPage : AppCompatActivity() {
         btnCamera.setOnClickListener {
             val intent = Intent(this@LandingPage, CameraActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            finish()
             dialog.dismiss()
         }
         dialog.show()
@@ -120,6 +124,8 @@ class LandingPage : AppCompatActivity() {
             val intent = Intent(this@LandingPage, PreviewFromGalleryActivity::class.java)
             intent.putExtra(PreviewFromGalleryActivity.EXTRA_IMAGE_URI, imageUri)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            finish()
         }
 //        else {
             // Handle the case where imageUri is null

@@ -100,6 +100,8 @@ class TextTranslator : AppCompatActivity() {
 
 //            startActivityForResult(intent, BACKUP_REQUEST_CODE)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            finish()
         }
 
         //Bottom Nav
