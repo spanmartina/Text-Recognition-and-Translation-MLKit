@@ -18,11 +18,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.io.File
 
 class LandingPage : AppCompatActivity() {
         private lateinit var auth: FirebaseAuth
         private lateinit var database: FirebaseDatabase
         private lateinit var reference: DatabaseReference
+
+
 
         private lateinit var nameTextView: TextView
         private lateinit var usernameTextView: TextView
@@ -59,7 +62,7 @@ class LandingPage : AppCompatActivity() {
 
                         // Update UI
                         nameTextView.text = name
-                        usernameTextView.text = username
+                        usernameTextView.text = "@$username"
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -78,6 +81,14 @@ class LandingPage : AppCompatActivity() {
             translatorCard.setOnClickListener {
                 val intent = Intent(this@LandingPage, TextTranslator::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                finish()
+            }
+
+            //Saved notes
+            val savedCard: CardView = findViewById(R.id.savedCard)
+            savedCard.setOnClickListener {
+                startActivity(Intent(this@LandingPage, SavedNotesActivity::class.java))
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 finish()
             }
@@ -119,10 +130,18 @@ class LandingPage : AppCompatActivity() {
 
     // Add this function to start the PreviewActivity with the selected image URI
     private fun startPreviewActivity(imageUri: Uri?) {
+
         if (imageUri != null) {
-            Log.e("startPreviewActivity URI!!!", imageUri.toString())
-            val intent = Intent(this@LandingPage, PreviewFromGalleryActivity::class.java)
-            intent.putExtra(PreviewFromGalleryActivity.EXTRA_IMAGE_URI, imageUri)
+            val imagePath = getAbsolutePathFromUri(imageUri)
+            Log.e("*** imageUri.toString()", imageUri.toString())
+            Log.e("*** File(imageUri.path!!)", File(imageUri.path!!).toString())
+            Log.e("*** imagePath", imagePath)
+
+
+            val intent = Intent(this@LandingPage, PreviewActivity::class.java)
+            intent.putExtra(PreviewActivity.EXTRA_IMAGE_PATH, imagePath)
+//            val intent = Intent(this@LandingPage, PreviewFromGalleryActivity::class.java)
+//            intent.putExtra(PreviewFromGalleryActivity.EXTRA_IMAGE_URI, imageUri)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             finish()
@@ -131,5 +150,16 @@ class LandingPage : AppCompatActivity() {
             // Handle the case where imageUri is null
 //            showToast("Selected image URI is null", Toast.LENGTH_SHORT).show()
 //        }
+    }
+
+
+    private fun getAbsolutePathFromUri(uri: Uri): String {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = contentResolver.query(uri, projection, null, null, null)
+        return cursor?.use {
+            val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            it.moveToFirst()
+            it.getString(columnIndex)
+        } ?: uri.path ?: ""
     }
 }

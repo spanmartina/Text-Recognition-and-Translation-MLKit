@@ -53,7 +53,7 @@ class PreviewActivity : AppCompatActivity() {
     private val languageRecognizer = LanguageRecognizer()
 
     // Create an instance of the TextTranslator class
-//    private val textTranslator = TextTranslator(this)
+    private val textTranslator = TranslatorHelper(this)
 
     // Create a variable to store the OCR result
     private lateinit var ocrResultMap: Map<Rect, Text.TextBlock>
@@ -129,6 +129,7 @@ class PreviewActivity : AppCompatActivity() {
                 // Perform language identification in a separate background thread
                 languageJob = CoroutineScope(Dispatchers.Default).launch {
                     languageCode = languageRecognizer.recognizeLanguage(ocrResultMap)
+Log.d("@@@@Previou languageCode", languageCode)
 
                     withContext(Dispatchers.Main) {
                         // Handle the language identification result here
@@ -136,7 +137,7 @@ class PreviewActivity : AppCompatActivity() {
                     }
                 }
 
-                /*
+
                 languageJob.invokeOnCompletion {
                     // Perform translation in a separate background thread
                     CoroutineScope(Dispatchers.Default).launch {
@@ -149,7 +150,7 @@ class PreviewActivity : AppCompatActivity() {
                     }
                 }
 
-                 */
+
 
 
             }
@@ -169,26 +170,7 @@ class PreviewActivity : AppCompatActivity() {
 
     }
 
-    // Create a function to process the translation result
-//    private fun processTranslationResult(translatedText: Map<Rect, String>) {
-//        // Handle the translation result
-//        for ((rect, text) in translatedText) {
-//            Log.d("Translation", "Translated text $text at $rect")
-//        }
-//
-//        // Get annotated bitmap
-//        bitmap = BitmapAnnotator.annotateBitmap(bitmap, ocrResultMap, translatedText)
-//
-//        // Display the annotated bitmap
-//        displayBitmap(bitmap)
-//
-//        // Dismiss the progress dialog
-//        Handler(Looper.getMainLooper()).post {
-//            progressDialog?.dismiss()
-//            progressDialog = null
-//        }
-//
-//    }
+
     private fun serializeOcrResult(ocrResultMap: Map<Rect, Text.TextBlock>): String {
 //        val serializedResult = ocrResultMap.mapValues { (_, textBlock) ->
 //            textBlock.text
@@ -245,6 +227,27 @@ class PreviewActivity : AppCompatActivity() {
             progressDialog?.dismiss()
             progressDialog = null
         }
+    }
+
+    // Create a function to process the translation result
+    private fun processTranslationResult(translatedText: Map<Rect, String>) {
+        // Handle the translation result
+        for ((rect, text) in translatedText) {
+            Log.d("Translation", "Translated text $text at $rect")
+        }
+
+        // Get annotated bitmap
+        bitmap = BitmapAnnotator.annotateBitmap(bitmap, ocrResultMap, translatedText)
+
+        // Display the annotated bitmap
+        displayBitmap(bitmap)
+
+        // Dismiss the progress dialog
+        Handler(Looper.getMainLooper()).post {
+            progressDialog?.dismiss()
+            progressDialog = null
+        }
+
     }
     // Create a function to read image file and return bitmap
 

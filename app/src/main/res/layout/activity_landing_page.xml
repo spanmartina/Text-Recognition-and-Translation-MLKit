@@ -11,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/constraintLayout"
-        android:layout_marginTop="80dp">
+        android:layout_marginTop="100dp">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="100dp"
             android:id="@+id/profileImage"
             android:src="@drawable/user_profile"
             app:layout_constraintTop_toTopOf="parent"
@@ -26,9 +26,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/name"
             android:text="Name"
-            android:textSize="20sp"
+            android:textSize="26sp"
             android:textStyle="bold"
-            android:layout_marginStart="18dp"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,8 +38,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/username"
             android:text="username"
-            android:textSize="20sp"
-            android:layout_marginStart="18dp"
+            android:textSize="22sp"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +49,7 @@
             android:layout_height="175dp"
             android:id="@+id/row1"
             android:orientation="horizontal"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="120dp"
             android:padding="10dp"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +61,7 @@
                 android:id="@+id/ocrCard"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="8dp"
+                app:cardElevation="6dp"
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -94,7 +92,7 @@
                 android:id="@+id/translatorCard"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="8dp"
+                app:cardElevation="6dp"
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -138,7 +136,7 @@
                 android:id="@+id/savedCard"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="8dp"
+                app:cardElevation="6dp"
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -169,7 +167,7 @@
                 android:id="@+id/settingsCard"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                app:cardElevation="8dp"
+                app:cardElevation="6dp"
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"

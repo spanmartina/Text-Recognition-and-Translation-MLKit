@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardNote"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="20dp"
+    android:elevation="8dp">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp">
+        <TextView
+            android:id="@+id/fileName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="File Name"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/fileContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/fileName"
+            android:text="Content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:layout_marginStart="20dp"
+            android:padding="6dp" />
+
+<!--        <com.google.android.material.imageview.ShapeableImageView-->
+<!--            android:id="@+id/deleteNote"-->
+<!--            android:layout_width="44dp"-->
+<!--            android:layout_height="44dp"-->
+<!--            android:layout_marginEnd="14dp"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:padding="6dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:src="@drawable/baseline_delete_24"-->
+<!--            android:tint="@color/colorPrimaryDark"/>-->
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

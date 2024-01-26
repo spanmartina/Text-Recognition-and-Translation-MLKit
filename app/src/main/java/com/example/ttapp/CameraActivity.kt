@@ -108,6 +108,7 @@ class CameraActivity : AppCompatActivity() {
                     // Start the PreviewActivity and pass the image path
                     val intent = Intent(this@CameraActivity, PreviewActivity::class.java)
                     intent.putExtra(PreviewActivity.EXTRA_IMAGE_PATH, photoFile.absolutePath)
+                    Log.d("photoFile.absolutePath", photoFile.absolutePath)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                     finish()

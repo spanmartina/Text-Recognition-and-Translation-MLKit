@@ -59,7 +59,7 @@ class TextTranslator : AppCompatActivity() {
         translationResult = findViewById(R.id.translationResult)
         btnBackup = findViewById(R.id.btnBackup)
 
-//        val BACKUP_REQUEST_CODE = 1
+        val BACKUP_REQUEST_CODE = 1
 
         //Bottom Nav
         var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
@@ -101,7 +101,7 @@ class TextTranslator : AppCompatActivity() {
 //            startActivityForResult(intent, BACKUP_REQUEST_CODE)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            finish()
+//            finish()
         }
 
         //Bottom Nav

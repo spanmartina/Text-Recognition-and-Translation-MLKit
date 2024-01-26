@@ -4,6 +4,7 @@ import android.app.Activity
 import com.google.android.gms.tasks.Tasks
 
 import android.content.Context
+import android.graphics.Rect
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -17,6 +18,7 @@ import com.google.mlkit.nl.translate.TranslatorOptions
 import com.google.mlkit.common.model.DownloadConditions
 import com.google.mlkit.common.model.RemoteModelManager
 import com.google.mlkit.nl.translate.TranslateRemoteModel
+import com.google.mlkit.vision.text.Text
 import java.util.Locale
 
 class TranslatorHelper(private val context: Context) {
@@ -28,7 +30,7 @@ class TranslatorHelper(private val context: Context) {
 
     // AlertDialog for download progress
     private var progressDialog: AlertDialog? = null
-
+    private val languageRecognizer = LanguageRecognizer()
     init {
         // Initialize the source (spanish) translator
         sourceOptions = TranslatorOptions.Builder()
@@ -54,6 +56,14 @@ class TranslatorHelper(private val context: Context) {
 
     // sourceLanguageCode is the language code in BCP-47 format, e.g., "es", "de", "fr", etc.
     private fun translateTextToEnglish(text: String, sourceLanguageCode: String): String {
+        Log.d("@@@@sourceBEFORE", sourceLanguageCode)
+//        val sourceLanguageCode = languageRecognizer.detectLanguage(text)
+//        Log.d("@@@@sourceLangugage", sourceLanguageCode)
+        Log.d("@@@@text", text)
+        if (sourceLanguageCode === "und") {
+            Log.d("@@@@und", sourceLanguageCode)
+            return text
+        }
         // Check if the translation model is downloaded and available
         if (!isModelDownloaded(sourceLanguageCode)) {
             // Model not downloaded, download it and wait for completion
@@ -133,5 +143,25 @@ class TranslatorHelper(private val context: Context) {
         } catch (e: Exception) {
             "Translation failed: ${e.message}"
         }
+    }
+    ///////////////////////
+    // Create a function to translate ocr result
+    fun translateOcrResult(ocrResult: Map<Rect, Text.TextBlock>, languageCode: String ): Map<Rect, String> {
+
+        // Create a map to store the translated result
+        val translatedResult = mutableMapOf<Rect, String>()
+
+        // Iterate through the ocr result
+        for ((rect, textBlock) in ocrResult) {
+
+            // Translate the textBlock text to english
+            val translatedText = translateTextToEnglish(textBlock.text, languageCode)
+
+            // Add the translated text to the map
+            translatedResult[rect] = translatedText
+        }
+
+        return translatedResult
+
     }
 }

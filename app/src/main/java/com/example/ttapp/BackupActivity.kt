@@ -63,6 +63,7 @@ class BackupActivity : AppCompatActivity() {
             if (currentUserUid != null) {
                 // Create a Note object with the entered values
                 val note = SavedNotes(
+
                     fileName,
                     sourceLanguage,
                     targetLanguage,
@@ -71,9 +72,17 @@ class BackupActivity : AppCompatActivity() {
                 )
                 // Save the note to the specific user's notes
                 reference.child(currentUserUid).child("notes").push().setValue(note)
+                finish()
 
-                val intent = Intent(this@BackupActivity, TextTranslator::class.java)
-                startActivity(intent)
+//                val newNoteRef = reference.child(currentUserUid).child("notes").push()
+//                val noteId = newNoteRef.key // Get the note ID
+//
+//                if (noteId != null) {
+//                    note.key = noteId
+//                    newNoteRef.setValue(note)
+//                }
+//
+//                finish()
             }
         }
     }

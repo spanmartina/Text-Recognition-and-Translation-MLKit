@@ -7,11 +7,15 @@ class SavedNotes {
     var sourceText: String? = null
     var targetText: String? = null
 
-    constructor( fileName: String?, sourceLanguage: String?, targetLanguage: String?, sourceText: String?, targetText: String?) {
+    constructor(  fileName: String?, sourceLanguage: String?, targetLanguage: String?, sourceText: String?, targetText: String?) {
+
         this.fileName = fileName
         this.sourceLanguage = sourceLanguage
         this.targetLanguage = targetLanguage
         this.sourceText = sourceText
         this.targetText = targetText
     }
+
+    constructor()
+    {}
 }

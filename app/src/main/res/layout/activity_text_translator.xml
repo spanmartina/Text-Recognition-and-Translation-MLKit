@@ -10,49 +10,58 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp">
-
-<!--    Logo-->
-        <LinearLayout
-        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginBottom="80dp">
+
+<!--    Logo-->
+<!--        <LinearLayout-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center"-->
+<!--            >-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center"
             >
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/default_logo"
-            android:layout_gravity="center"
-            android:layout_marginEnd="4dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Fire Translator"
+            android:paddingStart="30dp"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_marginStart="4dp"
-            android:textSize="23sp"
-            android:layout_gravity="center"/>
-        </LinearLayout>
+            android:textSize="23sp" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:layout_centerVertical="true"
+                android:src="@drawable/default_logo"
+                android:layout_marginEnd="4dp"/>
+        </RelativeLayout>
 
         <!-- Language Labels-->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:weightSum="3"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/white"
-            android:gravity="center">
+<!--        <LinearLayout-->
+<!--            android:orientation="horizontal"-->
+<!--            android:weightSum="3"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:background="@color/white"-->
+<!--            android:gravity="center">-->
 
             <!-- Source Language -->
 <!--            <TextView-->
@@ -63,15 +72,23 @@
 <!--                android:textColor="@color/black"-->
 <!--                android:textSize="18sp"-->
 <!--                android:gravity="end"/>-->
-            <TextView
+    <LinearLayout
+        android:id="@+id/langLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <TextView
                 android:id="@+id/sourceLanguageLabel"
-                android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Spanish"
-                android:layout_margin="3dp"
-                android:padding="3dp"
+                android:padding="12dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                android:gravity="center"
                 android:layout_gravity="center"/>
 
 <!--            <Spinner-->
@@ -93,8 +110,8 @@
 <!--                app:tint="@android:color/black" />-->
 
             <ImageView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
                 android:src="@drawable/baseline_compare_arrows"
                 android:layout_gravity="center"
@@ -107,8 +124,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="English"
-                android:layout_margin="3dp"
-                android:padding="3dp"
+                android:padding="12dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:layout_gravity="center"/>
@@ -129,16 +145,16 @@
 <!--                android:layout_margin="3dp"-->
 <!--                android:padding="3dp"-->
 <!--                android:layout_gravity="center"/>-->
-        </LinearLayout>
+<!--        </LinearLayout>-->
+    </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:padding="5dp"
             app:hintEnabled="false"
             android:layout_width="match_parent"
-            android:layout_height="190dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             app:boxBackgroundMode="none"
             android:elevation="8dp"
             android:background="@drawable/rounded_bg">
@@ -161,12 +177,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:padding="5dp"
             app:hintEnabled="false"
             android:layout_width="match_parent"
-            android:layout_height="190dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             app:boxBackgroundMode="none"
             android:elevation="8dp"
             android:background="@drawable/rounded_bg">
@@ -213,9 +228,8 @@
             android:text="Translate"
             android:textSize="18sp"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-
             android:backgroundTint="@color/frost_end"
             app:cornerRadius = "20dp"/>
 
@@ -225,7 +239,7 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/gray"
+            android:backgroundTint="@color/colorPrimaryDark"
             app:tint = "@color/white"
             android:src="@drawable/baseline_add_24" />
     </LinearLayout>

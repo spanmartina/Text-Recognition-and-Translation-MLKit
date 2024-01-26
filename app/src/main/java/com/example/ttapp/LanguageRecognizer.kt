@@ -29,16 +29,44 @@ class LanguageRecognizer {
     //Text.TextBlock objects representing the recognized text blocks
 //    The function returns a String representing the identified language.
 
+//    fun recognizeLanguage(ocrMap: Map<Rect, Text.TextBlock>): String {
+//        for ((_, textBlock) in ocrMap) {
+//            val text = textBlock.text
+//            val task: Task<String> = languageIdentifierClient.identifyLanguage(text)
+//            val result = Tasks.await(task)
+//            if (result.isNotBlank()) {
+//                return result
+//            }
+//        }
+//        return "Language NOT identified";
+//    }
+
     fun recognizeLanguage(ocrMap: Map<Rect, Text.TextBlock>): String {
+
+        val languageMap = mutableMapOf<String, Int>()
+
+        // Iterate through the map of OCR results
         for ((_, textBlock) in ocrMap) {
+            // Get the text from the textBlock
             val text = textBlock.text
+
+            // Create a task to recognize the language of the textBlock
             val task: Task<String> = languageIdentifierClient.identifyLanguage(text)
+
+            // Wait for the task to complete
             val result = Tasks.await(task)
-            if (result.isNotBlank()) {
-                return result
-            }
+
+            // Store the language in the map
+            languageMap[result] = (languageMap[result] ?: 0) + 1
         }
-        return "Language NOT identified";
+        val mostCommonLanguage = languageMap.maxByOrNull { it.value }?.key
+
+
+        // Return the most common language or "und" if none is found
+        return mostCommonLanguage ?: "und"
+
+
+
     }
 
     //detect language from string
