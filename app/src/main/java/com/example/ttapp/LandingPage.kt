@@ -2,15 +2,15 @@ package com.example.ttapp
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -24,8 +24,6 @@ class LandingPage : AppCompatActivity() {
         private lateinit var auth: FirebaseAuth
         private lateinit var database: FirebaseDatabase
         private lateinit var reference: DatabaseReference
-
-
 
         private lateinit var nameTextView: TextView
         private lateinit var usernameTextView: TextView
@@ -82,7 +80,7 @@ class LandingPage : AppCompatActivity() {
                 val intent = Intent(this@LandingPage, TextTranslator::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                finish()
+//                finish()
             }
 
             //Saved notes
@@ -90,8 +88,17 @@ class LandingPage : AppCompatActivity() {
             savedCard.setOnClickListener {
                 startActivity(Intent(this@LandingPage, SavedNotesActivity::class.java))
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                finish()
+//                finish()
             }
+
+            //Settings
+            val settingsCard: CardView = findViewById(R.id.settingsCard)
+            settingsCard.setOnClickListener {
+                startActivity(Intent(this@LandingPage, SettingsActivity::class.java))
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+//                finish()
+            }
+
     }
     private fun showOcrSelectionDialog() {
         val btnUpload: RelativeLayout
@@ -118,6 +125,7 @@ class LandingPage : AppCompatActivity() {
         dialog.show()
     }
 
+    @SuppressLint("IntentReset") //
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
@@ -125,7 +133,6 @@ class LandingPage : AppCompatActivity() {
             // Launch the intent
             pickImageLauncher.launch(intent)
         }
-//        startActivityForResult(intent, STORAGE_REQUEST_CODE)
     }
 
     // Add this function to start the PreviewActivity with the selected image URI
@@ -140,18 +147,11 @@ class LandingPage : AppCompatActivity() {
 
             val intent = Intent(this@LandingPage, PreviewActivity::class.java)
             intent.putExtra(PreviewActivity.EXTRA_IMAGE_PATH, imagePath)
-//            val intent = Intent(this@LandingPage, PreviewFromGalleryActivity::class.java)
-//            intent.putExtra(PreviewFromGalleryActivity.EXTRA_IMAGE_URI, imageUri)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            finish()
+//            finish()
         }
-//        else {
-            // Handle the case where imageUri is null
-//            showToast("Selected image URI is null", Toast.LENGTH_SHORT).show()
-//        }
     }
-
 
     private fun getAbsolutePathFromUri(uri: Uri): String {
         val projection = arrayOf(MediaStore.Images.Media.DATA)

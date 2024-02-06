@@ -8,12 +8,15 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Typeface
 import android.text.TextPaint
+import android.util.Log
 import com.google.mlkit.vision.text.Text
+import kotlin.math.max
 import kotlin.math.sqrt
 
 object BitmapAnnotator {
 
     // Function to take as input a bitmap, a map of OCR results as well as their translations, and return a bitmap annotated with translated ocr results
+    private const val DEFAULT_TEXT_SIZE = 16f
     public fun annotateBitmap(bitmap: Bitmap, ocrResult: Map<Rect, Text.TextBlock>, translatedOcrResult: Map<Rect, String>): Bitmap {
 
         // Create a mutable copy of the bitmap
@@ -60,11 +63,12 @@ object BitmapAnnotator {
             // Get approx char per line using the width of the rectF
             // Do an integer division to get the number of chars per line
             val averageCharWidth = textPaint.measureText(translatedText) / translatedText!!.length
-            val approxCharsPerLine = (rectF.width() / averageCharWidth).toInt()
+//            val approxCharsPerLine = (rectF.width() / averageCharWidth).toInt()
+            val approxCharsPerLine = max(1, (rectF.width() / averageCharWidth).toInt())
 
             // Split the translated text into lines each with approxCharsPerLine chars
-            val translatedTextLines = translatedText?.chunked(approxCharsPerLine) ?: listOf("")
-
+            val translatedTextLines = translatedText.chunked(approxCharsPerLine) ?: listOf("")
+            Log.d("%%%translatedTextLines", translatedTextLines.toString())
             // Draw each line of the translated text on the bitmap in rect coordinates
             // Start from top left
             var currentY = rectF.top + textPaint.textSize
@@ -121,6 +125,11 @@ object BitmapAnnotator {
     // Helper function to calculate the text size that fits within the given rectangle (takes into account warping of the text)
     private fun getTextSizeToFitRect(rect: RectF, text: String, tolerance: Float = 0.9f): Float {
 
+        if (text.isEmpty()) {
+            // Return a default text size or handle this case accordingly
+//            return DEFAULT_TEXT_SIZE
+            Log.d("!!!!text is emply", text)
+        }
 
         // Area of the rectangle
         val targetArea = (rect.width() * rect.height()) * tolerance
@@ -129,7 +138,12 @@ object BitmapAnnotator {
         val textLength = text.length
 
         // Area of a single character
-        val singleCharacterArea = targetArea / textLength
+        val singleCharacterArea = if (textLength > 0) targetArea / textLength else 0f
+        if (singleCharacterArea <= 0) {
+            // Handle the case where the singleCharacterArea is zero or negative
+            Log.e("!!!!Invalid singleCharacterArea", "Invalid singleCharacterArea: $singleCharacterArea")
+            return DEFAULT_TEXT_SIZE // Replace DEFAULT_TEXT_SIZE with an appropriate default size
+        }
 
         // Get an estimate of the text size such that the area of a character is equal to singleCharacterArea
         // Assuming equal size for all characters, aspect ratio of a character is 0.5

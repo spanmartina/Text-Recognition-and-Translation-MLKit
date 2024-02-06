@@ -1,6 +1,8 @@
 package com.example.ttapp
 
 import android.annotation.SuppressLint
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -78,6 +80,12 @@ class TextTranslator : AppCompatActivity() {
             Log.d("??? NO OCR", "No OCR result available.")
         }
 
+        sourceLanguage.setOnLongClickListener {
+//            openContextMenu(sourceLanguage)
+            pasteFromClipboard()
+            true
+        }
+
         btnTranslate.setOnClickListener {
             val langText: String = sourceLanguage.text.toString()
 
@@ -123,7 +131,6 @@ class TextTranslator : AppCompatActivity() {
                 else -> false
             }
         }
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -158,4 +165,17 @@ class TextTranslator : AppCompatActivity() {
         val locale = Locale(languageCode)
         return locale.displayLanguage
     }
+
+    private fun pasteFromClipboard() {
+        val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = clipboardManager.primaryClip
+        if (clipData != null && clipData.itemCount > 0) {
+            val pastedText = clipData.getItemAt(0).text.toString()
+            sourceLanguage.setText(pastedText)
+            showToast("Text pasted from clipboard")
+        } else {
+            showToast("Clipboard is empty")
+        }
+    }
+
 }

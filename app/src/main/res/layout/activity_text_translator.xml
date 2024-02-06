@@ -84,7 +84,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Spanish"
+                android:text="Source"
                 android:padding="12dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -112,7 +112,7 @@
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:src="@drawable/baseline_compare_arrows"
                 android:layout_gravity="center"
                 app:tint="@android:color/black"/>
@@ -127,6 +127,7 @@
                 android:padding="12dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                android:gravity="center"
                 android:layout_gravity="center"/>
 <!--            <TextView-->
 <!--                android:id="@+id/targetLanguageLabel"-->

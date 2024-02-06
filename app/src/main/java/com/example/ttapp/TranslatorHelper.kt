@@ -60,13 +60,14 @@ class TranslatorHelper(private val context: Context) {
 //        val sourceLanguageCode = languageRecognizer.detectLanguage(text)
 //        Log.d("@@@@sourceLangugage", sourceLanguageCode)
         Log.d("@@@@text", text)
-        if (sourceLanguageCode === "und") {
-            Log.d("@@@@und", sourceLanguageCode)
+        if (sourceLanguageCode == "und") {
+            Log.d("@@@@und@@@@", sourceLanguageCode)
             return text
         }
         // Check if the translation model is downloaded and available
         if (!isModelDownloaded(sourceLanguageCode)) {
             // Model not downloaded, download it and wait for completion
+            Log.d("&&&isModelDownloaded", sourceLanguageCode)
             downloadModel(sourceLanguageCode)
         }
         // Set the source language dynamically
@@ -74,6 +75,8 @@ class TranslatorHelper(private val context: Context) {
             .setSourceLanguage(TranslateLanguage.fromLanguageTag(sourceLanguageCode).toString())
             .setTargetLanguage(TranslateLanguage.ENGLISH)
             .build()
+        Log.d("&&&sourceOptions", TranslateLanguage.fromLanguageTag(sourceLanguageCode).toString())
+
 
         // Initialize the translator with the updated options
         sourceTranslator = com.google.mlkit.nl.translate.Translation.getClient(sourceOptions)
@@ -92,6 +95,8 @@ class TranslatorHelper(private val context: Context) {
 
     // Download translation model for the given language code
     private fun downloadModel(languageCode: String) {
+        Log.d("&&&Inside downloadModel", languageCode)
+
         // Create a progress dialog
         val progressBar = ProgressBar(context).apply {
             isIndeterminate = true
@@ -117,6 +122,7 @@ class TranslatorHelper(private val context: Context) {
                 progressDialog?.dismiss()
                 progressDialog = null
             }
+            Log.d("&&&Translation Model Downloaded Successfully", languageCode)
             showDownloadToast("Translation Model Downloaded Successfully")
 
         } catch (e: Exception) {
@@ -126,6 +132,8 @@ class TranslatorHelper(private val context: Context) {
                 progressDialog = null
             }
             showDownloadToast("Translation Model Download Failed")
+            Log.d("&&&Translation Model Download Failed", e.message.toString())
+
         }
     }
 

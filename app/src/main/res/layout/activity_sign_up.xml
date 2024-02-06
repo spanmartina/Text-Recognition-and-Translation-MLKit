@@ -50,15 +50,38 @@
                 android:hint="Email"
                 android:textColor="@color/black"/>
             <EditText
+                android:id="@+id/signup_username"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/signup_username"
                 android:background="@drawable/auth_border"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:hint="Username"
-                android:textColor="@color/black"
-                app:passwordToggleEnabled="true"/>
+                android:textColor="@color/black" />
+
+
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/signup_password_layout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Password"-->
+<!--                app:passwordToggleEnabled="true">-->
+
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/signup_password"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:padding="8dp"-->
+<!--                    android:background="@drawable/auth_border"-->
+<!--                    android:drawableRight="@drawable/baseline_eye_off_24"-->
+<!--                    android:drawablePadding="8dp"-->
+<!--                    android:textColor="@color/black"/>-->
+
+
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
+
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -70,8 +93,7 @@
                 android:inputType="textPassword"
                 android:drawableRight="@drawable/ic_baseline_eye_24"
                 android:drawablePadding="8dp"
-                android:textColor="@color/black"
-                app:passwordToggleEnabled="true"/>
+                android:textColor="@color/black"/>
 
             <EditText
                 android:layout_width="match_parent"

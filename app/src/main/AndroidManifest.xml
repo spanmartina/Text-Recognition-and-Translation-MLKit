@@ -18,7 +18,9 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -33,31 +35,25 @@
         android:theme="@style/Theme.TTApp"
         tools:targetApi="31">
         <activity
+            android:name=".EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewNoteActivity"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".SavedNotesActivity"-->
-<!--            android:exported="false" />-->
         <activity
             android:name=".SavedNotesActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:exported="false">
-            <!-- other activity configurations -->
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing">
         </activity>
         <activity
             android:name=".BackupActivity"
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
-            android:exported="false">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".SignUpActivity"
             android:exported="true">
@@ -68,50 +64,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PreviewFromGalleryActivity"
-            android:exported="false" />
-        <activity
             android:name=".PreviewActivity"
             android:exported="false" />
         <activity
             android:name=".LandingPage"
-            android:exported="false">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".CameraActivity"
             android:exported="false" />
         <activity
             android:name=".TextTranslator"
-            android:exported="false">
-
-            <!-- android:theme="@style/Theme.AppCompat.Light.DarkActionBar" -->
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:label="@string/app_name"
             android:theme="@style/Theme.TTApp">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
     </application>
-
 </manifest>

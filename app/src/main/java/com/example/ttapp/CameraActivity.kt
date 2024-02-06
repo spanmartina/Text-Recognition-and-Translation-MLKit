@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.camera.core.ImageCapture
 import java.util.concurrent.ExecutorService
-
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -34,7 +33,7 @@ class CameraActivity : AppCompatActivity() {
             // Handle Permission granted/rejected
             var permissionGranted = true
             permissions.entries.forEach {
-                if (it.key in REQUIRED_PERMISSIONS && it.value == false)
+                if (it.key in REQUIRED_PERMISSIONS && !it.value)
                     permissionGranted = false
             }
             if (!permissionGranted) {
@@ -66,6 +65,13 @@ class CameraActivity : AppCompatActivity() {
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        cameraExecutor.shutdown()
+    }
+    override fun onBackPressed() {
+        onBackPressedDispatcher.onBackPressed()
     }
 
     private fun takePhoto() {
@@ -103,7 +109,7 @@ class CameraActivity : AppCompatActivity() {
 
                 override fun
                         onImageSaved(output: ImageCapture.OutputFileResults){
-                    val msg = "Photo capture succeeded: ${output.savedUri}"
+//                    val msg = "Photo capture succeeded: ${output.savedUri}"
 
                     // Start the PreviewActivity and pass the image path
                     val intent = Intent(this@CameraActivity, PreviewActivity::class.java)
@@ -111,7 +117,6 @@ class CameraActivity : AppCompatActivity() {
                     Log.d("photoFile.absolutePath", photoFile.absolutePath)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                    finish()
                 }
             }
         )
@@ -172,7 +177,6 @@ class CameraActivity : AppCompatActivity() {
     }
     companion object {
         private const val TAG = "CameraXApp"
-        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private val REQUIRED_PERMISSIONS =
             mutableListOf (
                 Manifest.permission.CAMERA,

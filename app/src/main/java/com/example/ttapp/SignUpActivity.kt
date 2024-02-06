@@ -45,6 +45,9 @@ class SignUpActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         reference = database.reference.child("users")
 
+        // Check if the user is already signed in
+        checkAuthenticationStatus()
+
         signupButton.setOnClickListener {
             val name = signupName.text.toString()
             val email = signupEmail.text.toString()
@@ -100,6 +103,14 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkAuthenticationStatus() {
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            // User is already signed in, go to landing page
+            startActivity(Intent(this, LandingPage::class.java))
+            finish() // Finish this activity so the user can't navigate back to the sign-in screen
+        }
+    }
     private fun validateCredentials(): Boolean {
         val name = signupName.text.toString().trim()
         val email = signupEmail.text.toString().trim()
@@ -138,4 +149,5 @@ class SignUpActivity : AppCompatActivity() {
     private fun showToast(message: String){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
 }
