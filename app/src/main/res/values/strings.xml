@@ -9,4 +9,35 @@
     <string name="logout">Logout</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_file_name">Enter file name</string>
+    <string name="backup">Backup</string>
+    <string name="source_language">Source language</string>
+    <string name="target_language">Target language</string>
+    <string name="source_text">Source text</string>
+    <string name="target_text">Target text</string>
+    <string name="save">Save</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="add_note">Add note</string>
+    <string name="Name">Name</string>
+    <string name="Email">Email</string>
+    <string name="Sign_up">Sign Up</string>
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="retype_password">Retype Password</string>
+    <string name="redirect_login">Already an user? Login</string>
+    <string name="source">Source</string>
+    <string name="target">English</string>
+    <string name="enter_text">Enter Text</string>
+    <string name="file_name">File Name</string>
+    <string name="camera_icon">Camera icon</string>
+    <string name="camera">Camera</string>
+    <string name="gallery_icon">Gallery icon</string>
+    <string name="upload">Upload</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="content">Content</string>
+    <string name="loading">Loading...</string>
+    <string name="ocr">OCR</string>
 </resources>

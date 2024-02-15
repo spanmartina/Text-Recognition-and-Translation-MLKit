@@ -26,13 +26,13 @@
                 android:src="@drawable/baseline_camera_24"
                 android:layout_centerHorizontal="true"
                 app:tint="@color/colorPrimary"
-                android:contentDescription="Camera icon" />
+                android:contentDescription="@string/camera_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cameraImage"
-                android:text="Camera"
+                android:text="@string/camera"
                 android:padding="10dp"
                 android:textSize="24sp"
 
@@ -57,13 +57,13 @@
                 android:src="@drawable/baseline_image_24"
                 android:layout_centerHorizontal="true"
                 app:tint="@color/colorPrimary"
-                android:contentDescription="Gallery icon" />
+                android:contentDescription="@string/gallery_icon" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/galleryImage"
-                android:text="Upload"
+                android:text="@string/upload"
                 android:padding="10dp"
                 android:textSize="24sp"
                 android:textColor="@color/colorPrimary"

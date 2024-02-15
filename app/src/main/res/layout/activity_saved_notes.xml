@@ -11,8 +11,6 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="60dp">
 
-
-
     <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +52,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:contentDescription="Add note"
+        android:contentDescription="@string/add_note"
         android:src="@drawable/baseline_add_24"
         app:tint="@color/white" />
     </RelativeLayout>
@@ -75,6 +73,6 @@
         app:itemIconTint="@drawable/item_selector"
         app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/bottom_menu" />
-
+        app:menu="@menu/bottom_menu"
+        tools:ignore="VisualLintBottomNav" />
 </RelativeLayout>

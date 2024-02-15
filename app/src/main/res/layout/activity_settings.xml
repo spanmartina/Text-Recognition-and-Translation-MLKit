@@ -17,7 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-
     <ImageView
         android:id="@+id/changeProfileImg"
         android:layout_width="50dp"
@@ -29,30 +28,6 @@
         app:layout_constraintEnd_toEndOf="@+id/profileImg"
         app:tint="@color/white"
         android:elevation="40dp"/>
-
-
-    <!--    <ImageView-->
-<!--        android:layout_width="120dp"-->
-<!--        android:layout_height="120dp"-->
-<!--        android:id="@+id/profileImg"-->
-<!--        android:layout_marginTop="100dp"-->
-<!--        android:src="@drawable/user_profile"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"/>-->
-
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/username"-->
-<!--        android:text="username"-->
-<!--        android:textSize="22sp"-->
-<!--        android:textColor="@color/white"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/profileImg" />-->
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -153,7 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/profileUsername"
-                android:text="username"
+                android:text="@string/username"
                 android:layout_weight="1"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/grey"
@@ -183,15 +158,18 @@
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"/>
+
             <TextView
+                android:id="@+id/profilePassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/profilePassword"
-                android:inputType="textPassword"
                 android:layout_weight="1"
+                android:inputType="textPassword"
                 android:textAlignment="viewEnd"
                 android:textColor="@color/grey"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:text="@string/password"
+                tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
     </LinearLayout>
 

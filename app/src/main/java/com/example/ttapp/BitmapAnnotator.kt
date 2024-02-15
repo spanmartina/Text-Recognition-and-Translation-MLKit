@@ -17,7 +17,7 @@ object BitmapAnnotator {
 
     // Function to take as input a bitmap, a map of OCR results as well as their translations, and return a bitmap annotated with translated ocr results
     private const val DEFAULT_TEXT_SIZE = 16f
-    public fun annotateBitmap(bitmap: Bitmap, ocrResult: Map<Rect, Text.TextBlock>, translatedOcrResult: Map<Rect, String>): Bitmap {
+    fun annotateBitmap(bitmap: Bitmap, ocrResult: Map<Rect, Text.TextBlock>, translatedOcrResult: Map<Rect, String>): Bitmap {
 
         // Create a mutable copy of the bitmap
         val annotatedBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
@@ -31,7 +31,7 @@ object BitmapAnnotator {
         val rectFMap = mutableMapOf<Rect, RectF>()
 
         // Iterate over ocrResult and translatedOcrResult and draw the translated text on the bitmap
-        for ((rect, line) in ocrResult) {
+        for ((rect, _) in ocrResult) {
 
             // Draw a filled rectangle on the bitmap in rect coordinates
             val clampedRect = rect.clampToBitmap(bitmap) // Helper function to clamp the rect to the bitmap
@@ -45,7 +45,7 @@ object BitmapAnnotator {
 
         // Create a paint object to draw the text
         val textPaint = TextPaint()
-        for ((rect, line) in ocrResult) {
+        for ((rect, _) in ocrResult) {
 
             // Get the translated text from the translatedOcrResult map
             val translatedText = translatedOcrResult[rect]
@@ -67,7 +67,7 @@ object BitmapAnnotator {
             val approxCharsPerLine = max(1, (rectF.width() / averageCharWidth).toInt())
 
             // Split the translated text into lines each with approxCharsPerLine chars
-            val translatedTextLines = translatedText.chunked(approxCharsPerLine) ?: listOf("")
+            val translatedTextLines = translatedText.chunked(approxCharsPerLine)
             Log.d("%%%translatedTextLines", translatedTextLines.toString())
             // Draw each line of the translated text on the bitmap in rect coordinates
             // Start from top left
@@ -128,7 +128,7 @@ object BitmapAnnotator {
         if (text.isEmpty()) {
             // Return a default text size or handle this case accordingly
 //            return DEFAULT_TEXT_SIZE
-            Log.d("!!!!text is emply", text)
+            Log.d("!!!!text is employ", text)
         }
 
         // Area of the rectangle
@@ -141,14 +141,16 @@ object BitmapAnnotator {
         val singleCharacterArea = if (textLength > 0) targetArea / textLength else 0f
         if (singleCharacterArea <= 0) {
             // Handle the case where the singleCharacterArea is zero or negative
-            Log.e("!!!!Invalid singleCharacterArea", "Invalid singleCharacterArea: $singleCharacterArea")
+            Log.e(
+                "!!!!Invalid singleCharacterArea",
+                "Invalid singleCharacterArea: $singleCharacterArea"
+            )
             return DEFAULT_TEXT_SIZE // Replace DEFAULT_TEXT_SIZE with an appropriate default size
         }
 
         // Get an estimate of the text size such that the area of a character is equal to singleCharacterArea
         // Assuming equal size for all characters, aspect ratio of a character is 0.5
-        val estimatedTextSize = sqrt(singleCharacterArea / 0.5f)
 
-        return estimatedTextSize
+        return sqrt(singleCharacterArea / 0.5f)
     }
 }

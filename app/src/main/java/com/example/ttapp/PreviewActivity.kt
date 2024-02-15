@@ -93,7 +93,7 @@ class PreviewActivity : AppCompatActivity() {
                 ocrResultMap = ocrHelper.performOcr(bitmap)
 
                 withContext(Dispatchers.Main) {
-                    // Handle the OCR result here
+                    // Handle the OCR result
                     processOcrResult(ocrResultMap)
                 }
             }
@@ -163,7 +163,7 @@ class PreviewActivity : AppCompatActivity() {
 
     private fun processLanguageResult(languageResult: String) {
         // Handle the language identification result
-        Log.d("Language", "Language detected is $languageCode")
+        Log.d("Language", "Language detected is $languageResult")
 
         runOnUiThread {
             progressDialog?.dismiss()

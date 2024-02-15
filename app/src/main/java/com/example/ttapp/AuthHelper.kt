@@ -13,6 +13,6 @@ class AuthHelper {
         this.password = password
     }
 
-    constructor() {}
+    constructor()
 }
 

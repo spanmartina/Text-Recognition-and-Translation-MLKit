@@ -2,10 +2,10 @@ package com.example.ttapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -90,7 +90,7 @@ class SignInActivity : AppCompatActivity() {
                             loginPassword.requestFocus()
                         }
                         else -> {
-                            Log.d("Authentication failed", "${task.exception?.message}")
+                            Toast.makeText(this, "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

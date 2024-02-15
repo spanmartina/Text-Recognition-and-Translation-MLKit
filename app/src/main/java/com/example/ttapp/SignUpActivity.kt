@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var signupName: EditText
@@ -86,10 +85,9 @@ class SignUpActivity : AppCompatActivity() {
                         }
                     }.addOnFailureListener { exception ->
                         if (exception is FirebaseAuthUserCollisionException) {
-                            Log.e("!!Email is already in use","Email is already in use.")
+                            Log.e("Email is already in use","Email is already in use.")
                         } else {
-                            Log.e("!!Email is already in use"," ${exception.message}")
-
+                            Log.e("Exception"," ${exception.message}")
                             showToast("Failed to create user: ${exception.message}")
                         }
                     }
@@ -122,23 +120,19 @@ class SignUpActivity : AppCompatActivity() {
             signupName.error = "Name is required!"
             return false
         }
-
         if (email.isEmpty()) {
             signupEmail.error = "Email is required!"
             return false
         }
-
         if (username.isEmpty()) {
             signupUsername.error = "Username is required!"
             return false
         }
-
         if (password.isEmpty()) {
             signupPassword.error = "Password is required!"
             signupConfirmPassword.error = "Confirm Password is required!"
             return false
         }
-
         if (password != confirmPassword) {
             signupConfirmPassword.error = "Passwords do not match!"
             return false
@@ -149,5 +143,4 @@ class SignUpActivity : AppCompatActivity() {
     private fun showToast(message: String){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
-
 }

@@ -3,15 +3,15 @@
     <item
         android:id="@+id/bottom_home"
         android:icon="@drawable/baseline_home_24"
-        android:title="Home"
+        android:title="@string/home"
         android:iconTint="@color/white"/>
     <item
         android:id="@+id/bottom_ocr"
         android:icon="@drawable/baseline_image_search_24"
-        android:title="OCR" />
+        android:title="@string/ocr" />
     <item
         android:id="@+id/bottom_translator"
         android:icon="@drawable/baseline_translate_24"
-        android:title="Translator" />
+        android:title="@string/translator" />
 
 </menu>

@@ -21,7 +21,6 @@ import com.example.ttapp.databinding.ActivityCameraBinding
 import java.io.File
 
 class CameraActivity : AppCompatActivity() {
-
     private lateinit var viewBinding: ActivityCameraBinding
     private var imageCapture: ImageCapture? = null
     private lateinit var cameraExecutor: ExecutorService
@@ -45,12 +44,9 @@ class CameraActivity : AppCompatActivity() {
             }
         }
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityCameraBinding.inflate(layoutInflater)
-//        setContentView(R.layout.activity_camera)
         setContentView(viewBinding.root)
 
         // Request camera permissions
@@ -59,13 +55,10 @@ class CameraActivity : AppCompatActivity() {
         } else {
             requestPermissions()
         }
-
-        // Set up the listeners for take photo and video capture buttons
         viewBinding.btnCapture.setOnClickListener { takePhoto() }
-
         cameraExecutor = Executors.newSingleThreadExecutor()
-
     }
+
     override fun onDestroy() {
         super.onDestroy()
         cameraExecutor.shutdown()
@@ -75,30 +68,18 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
-
-        Log.d(TAG, "takePhoto: called")
-
         // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
-
         // Create time stamped name and MediaStore entry.
         val fileName = "ttapp.jpg"
-
         // Get the output directory for saving the image
         val outputDirectory = getOutputDirectory()
-
         // Create the file for the image capture
         val photoFile = File(outputDirectory, fileName)
-
         // Create output options object which contains the file to save the image
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
-
-        Log.d(TAG, "takePhoto: contentValues created")
-
-        Log.d(TAG, "takePhoto: outputOptions created")
-        // Set up image capture listener, which is triggered after photo has
-        // been taken
+        // Set up image capture listener
         imageCapture.takePicture(
             outputOptions,
             ContextCompat.getMainExecutor(this),
@@ -106,24 +87,18 @@ class CameraActivity : AppCompatActivity() {
                 override fun onError(exc: ImageCaptureException) {
                     Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
                 }
-
                 override fun
                         onImageSaved(output: ImageCapture.OutputFileResults){
-//                    val msg = "Photo capture succeeded: ${output.savedUri}"
-
                     // Start the PreviewActivity and pass the image path
                     val intent = Intent(this@CameraActivity, PreviewActivity::class.java)
                     intent.putExtra(PreviewActivity.EXTRA_IMAGE_PATH, photoFile.absolutePath)
-                    Log.d("photoFile.absolutePath", photoFile.absolutePath)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
             }
         )
-
     }
 
-    // Function to get the app's private directory for saving images
     private fun getOutputDirectory(): File {
         val mediaDir = externalMediaDirs.firstOrNull()?.let {
             File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
@@ -163,7 +138,6 @@ class CameraActivity : AppCompatActivity() {
             } catch(exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
             }
-
         }, ContextCompat.getMainExecutor(this))
     }
 
@@ -187,5 +161,4 @@ class CameraActivity : AppCompatActivity() {
                 }
             }.toTypedArray()
     }
-
 }

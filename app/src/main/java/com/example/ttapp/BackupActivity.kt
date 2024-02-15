@@ -1,6 +1,5 @@
 package com.example.ttapp
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -36,7 +35,8 @@ class BackupActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         reference = database.reference.child("users")
         auth = FirebaseAuth.getInstance()
-        // Retrieve data from the Intent
+
+        // Retrieve data from Intent
         val intentData = intent.extras
         if (intentData != null) {
             val sourceLangExtra = intentData.getString("sourceLang")
@@ -44,7 +44,6 @@ class BackupActivity : AppCompatActivity() {
             val sourceTextExtra = intentData.getString("sourceText")
             val targetTextExtra = intentData.getString("targetText")
 
-            // Set retrieved data to your EditTexts or other views
             sourceLang.setText(sourceLangExtra)
             targetLang.setText(targetLangExtra)
             sourceText.setText(sourceTextExtra)
@@ -58,12 +57,10 @@ class BackupActivity : AppCompatActivity() {
             val sourceText = sourceText.text.toString()
             val targetText = targetText.text.toString()
 
-            // Get the currently authenticated userid
             val currentUserUid = auth.currentUser?.uid
             if (currentUserUid != null) {
-                // Create a Note object with the entered values
+                // Create a Note object
                 val note = SavedNotes(
-
                     fileName,
                     sourceLanguage,
                     targetLanguage,
@@ -73,16 +70,6 @@ class BackupActivity : AppCompatActivity() {
                 // Save the note to the specific user's notes
                 reference.child(currentUserUid).child("notes").push().setValue(note)
                 finish()
-
-//                val newNoteRef = reference.child(currentUserUid).child("notes").push()
-//                val noteId = newNoteRef.key // Get the note ID
-//
-//                if (noteId != null) {
-//                    note.key = noteId
-//                    newNoteRef.setValue(note)
-//                }
-//
-//                finish()
             }
         }
     }

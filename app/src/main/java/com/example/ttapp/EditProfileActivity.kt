@@ -10,12 +10,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-//import com.google.firebase.auth.EmailAuthProvider
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var editName: EditText
     private lateinit var editUsername: EditText
-//    private lateinit var editEmail: EditText
     private lateinit var editPassword: EditText
     private lateinit var btnSave: Button
 
@@ -34,18 +32,15 @@ class EditProfileActivity : AppCompatActivity() {
 
         val name = intent.getStringExtra("name")
         val username = intent.getStringExtra("username")
-//        val email = intent.getStringExtra("email")
         val password = intent.getStringExtra("password")
 
         editName = findViewById(R.id.editName)
         editUsername = findViewById(R.id.editUsername)
-//        editEmail = findViewById(R.id.editEmail)
         editPassword = findViewById(R.id.editPassword)
         btnSave = findViewById(R.id.btnSave)
 
         editName.setText(name)
         editUsername.setText(username)
-//        editEmail.setText(email)
         editPassword.setText(password)
 
         btnSave.setOnClickListener {
@@ -54,16 +49,15 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun saveChanges() {
-
         val newName = editName.text.toString().trim()
         val newUsername = editUsername.text.toString().trim()
-//        val newEmail = editEmail.text.toString().trim()
         val newPassword = editPassword.text.toString().trim()
 
         if (newName.isEmpty() || newUsername.isEmpty()) {
             Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show()
             return
         }
+
         //Update database if the fields changed
         if (newName != intent.getStringExtra("name")) {
             databaseReference.child("name").setValue(newName)
@@ -71,7 +65,6 @@ class EditProfileActivity : AppCompatActivity() {
         if (newUsername != intent.getStringExtra("username")) {
             databaseReference.child("username").setValue(newUsername)
         }
-
 
         if (newPassword.isNotEmpty() && newPassword != intent.getStringExtra("password")) {
             // Re-authenticate the user

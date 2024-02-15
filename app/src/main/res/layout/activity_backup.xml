@@ -21,36 +21,42 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:padding="20dp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Backup"
-                android:textColor="@color/frost_end"
-                android:textStyle="bold"
-                android:textSize="24dp"
                 android:paddingTop="20dp"
-                android:paddingBottom="20dp"/>
+                android:paddingBottom="20dp"
+                android:text="@string/backup"
+                android:textColor="@color/frost_end"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
             <EditText
                 android:id="@+id/fileName"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/auth_border"
                 android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:maxLines="1"
-                android:hint="Enter file name"
+                android:autofillHints="File Name"
+                android:background="@drawable/auth_border"
                 android:gravity="start|center_vertical"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:hint="@string/enter_file_name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="16dp"/>
+
             <EditText
                 android:id="@+id/sourceLang"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:background="@drawable/auth_border"
                 android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:hint="Source language"
+                android:background="@drawable/auth_border"
                 android:gravity="start|center_vertical"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:hint="@string/source_language"
+                android:padding="16dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/gray"
+                android:inputType="text"
+                android:importantForAutofill="no" />
             <EditText
                 android:id="@+id/targetLang"
                 android:layout_width="match_parent"
@@ -58,9 +64,11 @@
                 android:background="@drawable/auth_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
-                android:hint="Target language"
+                android:hint="@string/target_language"
                 android:gravity="start|center_vertical"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textColor="@color/colorPrimaryDark"
+                android:inputType="text"
+                android:importantForAutofill="no" />
             <EditText
                 android:id="@+id/sourceText"
                 android:layout_width="match_parent"
@@ -68,30 +76,33 @@
                 android:background="@drawable/auth_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
-                android:hint="Source text"
+                android:hint="@string/source_text"
                 android:gravity="start|center_vertical"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textColor="@color/colorPrimaryDark"
+                android:inputType="text"
+                android:importantForAutofill="no" />
+
             <EditText
                 android:id="@+id/targetText"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/auth_border"
                 android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:hint="Target text"
+                android:background="@drawable/auth_border"
                 android:gravity="start|center_vertical"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:hint="@string/target_text"
+                android:padding="16dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/gray"
+                android:inputType="text"
+                android:importantForAutofill="no" />
             <Button
                 android:id="@+id/btnBackup"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Save"
+                android:text="@string/save"
                 android:textSize="18sp"
                 android:layout_marginTop="20dp"
-                app:cornerRadius = "20dp"
-                />
+                app:cornerRadius = "20dp"/>
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
-
 </ScrollView>

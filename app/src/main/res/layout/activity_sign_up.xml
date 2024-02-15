@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign Up"
+                android:text="@string/Sign_up"
                 android:textSize="28sp"
                 android:textAlignment="center"
                 android:textStyle="bold"
@@ -37,8 +37,10 @@
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
                 android:paddingStart="12dp"
-                android:hint="Name"
-                android:textColor="@color/black"/>
+                android:paddingEnd="12dp"
+                android:hint="@string/Name"
+                android:textColor="@color/black"
+                android:inputType="textPersonName" />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -47,8 +49,10 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:paddingStart="12dp"
-                android:hint="Email"
-                android:textColor="@color/black"/>
+                android:paddingEnd="12dp"
+                android:hint="@string/Email"
+                android:textColor="@color/black"
+                android:inputType="textEmailAddress" />
             <EditText
                 android:id="@+id/signup_username"
                 android:layout_width="match_parent"
@@ -56,31 +60,9 @@
                 android:background="@drawable/auth_border"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
-                android:hint="Username"
-                android:textColor="@color/black" />
-
-
-<!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:id="@+id/signup_password_layout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:hint="Password"-->
-<!--                app:passwordToggleEnabled="true">-->
-
-<!--                <com.google.android.material.textfield.TextInputEditText-->
-<!--                    android:id="@+id/signup_password"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="50dp"-->
-<!--                    android:layout_marginTop="20dp"-->
-<!--                    android:padding="8dp"-->
-<!--                    android:background="@drawable/auth_border"-->
-<!--                    android:drawableRight="@drawable/baseline_eye_off_24"-->
-<!--                    android:drawablePadding="8dp"-->
-<!--                    android:textColor="@color/black"/>-->
-
-
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
-
+                android:hint="@string/Username"
+                android:textColor="@color/black"
+                android:inputType= "text" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -89,9 +71,9 @@
                 android:background="@drawable/auth_border"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
-                android:hint="Password"
+                android:hint="@string/Password"
                 android:inputType="textPassword"
-                android:drawableRight="@drawable/ic_baseline_eye_24"
+                android:drawableEnd="@drawable/ic_baseline_eye_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
 
@@ -102,15 +84,15 @@
                 android:background="@drawable/auth_border"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
-                android:hint="Retype Password"
+                android:hint="@string/retype_password"
                 android:inputType="textPassword"
-                android:drawableRight="@drawable/ic_baseline_eye_24"
+                android:drawableEnd="@drawable/ic_baseline_eye_24"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Sign Up"
+                android:text="@string/Sign_up"
                 android:id="@+id/signup_button"
                 android:textSize="18sp"
                 android:layout_marginTop="30dp"
@@ -120,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/redirectText"
-                android:text="Already an user? Login"
+                android:text="@string/redirect_login"
                 android:layout_gravity="center"
                 android:padding="6dp"
                 android:layout_marginTop="8dp"

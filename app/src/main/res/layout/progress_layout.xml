@@ -14,9 +14,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="4"
-        android:text="Loading..."
+        android:text="@string/loading"
         android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
         android:gravity="start|center_vertical"/>
-
 </LinearLayout>

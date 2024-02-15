@@ -17,34 +17,22 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="80dp">
 
-<!--    Logo-->
-<!--        <LinearLayout-->
-<!--        android:orientation="horizontal"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        android:layout_marginEnd="20dp"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--            >-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_gravity="center"
-            >
+            android:layout_gravity="center">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fire Translator"
-            android:paddingStart="30dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginStart="4dp"
-            android:textSize="23sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fire Translator"
+                android:paddingStart="30dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginStart="4dp"
+                android:textSize="23sp" />
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -54,60 +42,24 @@
                 android:layout_marginEnd="4dp"/>
         </RelativeLayout>
 
-        <!-- Language Labels-->
-<!--        <LinearLayout-->
-<!--            android:orientation="horizontal"-->
-<!--            android:weightSum="3"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="60dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:gravity="center">-->
+        <LinearLayout
+            android:id="@+id/langLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
 
-            <!-- Source Language -->
-<!--            <TextView-->
-<!--                android:id="@+id/sourceLanguageLabel"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Spanish"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="18sp"-->
-<!--                android:gravity="end"/>-->
-    <LinearLayout
-        android:id="@+id/langLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
-
-        <TextView
+            <TextView
                 android:id="@+id/sourceLanguageLabel"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Source"
+                android:text="@string/source"
                 android:padding="12dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:layout_gravity="center"/>
-
-<!--            <Spinner-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:id="@+id/idFromSpinner"-->
-<!--                android:layout_margin="3dp"-->
-<!--                android:padding="3dp"-->
-<!--                android:layout_gravity="center"/>-->
-
-            <!-- Arrow icon -->
-<!--            <ImageView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:src="@drawable/baseline_arrow"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_marginHorizontal="8dp"-->
-<!--                app:tint="@android:color/black" />-->
 
             <ImageView
                 android:layout_width="35dp"
@@ -123,31 +75,13 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="English"
+                android:text="@string/target"
                 android:padding="12dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:gravity="center"
                 android:layout_gravity="center"/>
-<!--            <TextView-->
-<!--                android:id="@+id/targetLanguageLabel"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="English"-->
-<!--                android:textColor="@android:color/black"-->
-<!--                android:textSize="18sp"-->
-<!--                android:gravity="start"/>-->
-
-<!--            <Spinner-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:id="@+id/idToSpinner"-->
-<!--                android:layout_margin="3dp"-->
-<!--                android:padding="3dp"-->
-<!--                android:layout_gravity="center"/>-->
-<!--        </LinearLayout>-->
-    </LinearLayout>
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="20dp"
@@ -164,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/sourceLanguage"
-                android:hint="Enter Text"
+                android:hint="@string/enter_text"
                 android:ems="10"
                 android:importantForAutofill="no"
                 android:inputType="textImeMultiLine|textMultiLine"
@@ -174,7 +108,6 @@
                 android:textColorHint="@color/endless_river_end"
                 android:background="@android:color/white"/>
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="10dp"
@@ -202,48 +135,34 @@
                 android:background="@android:color/white"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-
-<!--        <com.google.android.material.button.MaterialButton-->
-<!--            android:id="@+id/btnTranslate"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="20dp"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:layout_marginBottom="20dp"-->
-<!--            android:background="@color/gunmetal"-->
-<!--            android:text="Translate"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="19sp" />-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btnTranslate"
-            android:layout_width="0dp"
-            android:layout_weight="7"
-            android:layout_height="60dp"
-            android:text="Translate"
-            android:textSize="18sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/frost_end"
-            app:cornerRadius = "20dp"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnBackup"
-            android:layout_width="0dp"
-            android:layout_weight="2"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            app:tint = "@color/white"
-            android:src="@drawable/baseline_add_24" />
-    </LinearLayout>
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnTranslate"
+                android:layout_width="0dp"
+                android:layout_weight="7"
+                android:layout_height="60dp"
+                android:text="Translate"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/frost_end"
+                app:cornerRadius = "20dp"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnBackup"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:contentDescription="@sting/backup"
+                app:tint = "@color/white"
+                android:src="@drawable/baseline_add_24" />
+        </LinearLayout>
     </LinearLayout>
 
 <!--    Bottom Navigation-->

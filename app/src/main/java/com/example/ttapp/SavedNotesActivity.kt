@@ -1,9 +1,9 @@
 package com.example.ttapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -24,11 +24,11 @@ class SavedNotesActivity : AppCompatActivity() {
 
     private var eventListener: ValueEventListener? = null
     private lateinit var dataList: ArrayList<SavedNotes>
-//    private lateinit var keysList: ArrayList<SavedNotes>
 
     private lateinit var adapter: NotesAdaptor
     private lateinit var binding: ActivitySavedNotesBinding
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySavedNotesBinding.inflate(layoutInflater)
@@ -38,15 +38,13 @@ class SavedNotesActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
 
         //Bottom Nav
-        var bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNavigationView.selectedItemId = R.id.bottom_translator
-
 
         val currentUserUid = auth.currentUser?.uid
 
         if (currentUserUid != null) {
             reference = database.reference.child("users").child(currentUserUid).child("notes")
-            Log.d("@reference", reference.toString())
         }
 
         val gridLayoutManager = GridLayoutManager(this@SavedNotesActivity, 1)
@@ -59,13 +57,12 @@ class SavedNotesActivity : AppCompatActivity() {
         dialog.show()
 
         dataList = ArrayList()
-//        keysList = ArrayList()
-
         adapter = NotesAdaptor(this@SavedNotesActivity, dataList)
         binding.notesView.adapter = adapter
         dialog.show()
 
         eventListener = reference!!.addValueEventListener(object: ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 dataList.clear()
                 for (itemSnapshot in snapshot.children) {
@@ -75,10 +72,7 @@ class SavedNotesActivity : AppCompatActivity() {
                     }
                 }
 
-                // Reverse the order of dataList
-//                dataList = dataList.reversed() as ArrayList<SavedNotes>
                 adapter.notifyDataSetChanged()
-//                adapter.setSearchDataList(dataList)
                 dialog.dismiss()
             }
             override fun onCancelled(error: DatabaseError) {
@@ -130,13 +124,8 @@ class SavedNotesActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
-//        adapter.setOnItemClickListener(object : NotesAdaptor.OnItemClickListener {
-//            override fun onDeleteClick(position: Int, key: String) {
-//                showDeleteDialog(position, key)
-//            }
-//        })
     }
+
     fun searchList(text: String) {
         val searchList = java.util.ArrayList<SavedNotes>()
         for (dataClass in dataList) {
@@ -148,39 +137,4 @@ class SavedNotesActivity : AppCompatActivity() {
         }
         adapter.searchDataList(searchList)
     }
-
-//    private fun showDeleteDialog(position: Int, key: String) {
-//        val alertDialogBuilder = AlertDialog.Builder(this)
-//        alertDialogBuilder.setTitle("Delete Note")
-//        alertDialogBuilder.setMessage("Are you sure you want to delete this note?")
-//        alertDialogBuilder.setPositiveButton("Yes") { _, _ ->
-//            // Delete note from the database and update UI
-////            deleteNote(position)
-////            Log.d("@position", dataList[position].key().toString())
-//            Log.d("@position", position.toString())
-//            Log.d("@key", key)
-//
-//            val intent = Intent(this@SavedNotesActivity, SavedNotesActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
-//        alertDialogBuilder.setNegativeButton("No") { dialog, _ ->
-//            dialog.dismiss()
-//        }
-//        alertDialogBuilder.create().show()
-//    }
-
-//    private fun deleteNote(position: Int) {
-//        // Delete note from the database
-//        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
-//
-//        if (currentUserUid != null) {
-//            val noteRef = FirebaseDatabase.getInstance().getReference("users/$currentUserUid/notes/")
-//            noteRef.child(dataList[position].key!!).removeValue()
-//
-//            // Remove the note from the local list and notify the adapter
-//            dataList.removeAt(position)
-//            adapter.notifyItemRemoved(position)
-//        }
-//    }
 }

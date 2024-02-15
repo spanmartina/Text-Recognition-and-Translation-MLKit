@@ -22,19 +22,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity="center"
-            >
+            android:layout_gravity="center">
 
             <EditText
                 android:id="@+id/fileName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="File Name"
+                android:text="@string/file_name"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
-                android:textSize="24dp"
+                android:textSize="24sp"
                 android:paddingTop="20dp"
-                android:paddingBottom="20dp"/>
+                android:paddingBottom="20dp"
+                android:inputType="text" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/checkIcon"
@@ -63,9 +63,9 @@
                 android:layout_weight="1"
                 android:background="@drawable/auth_border"
                 android:padding="16dp"
-                android:hint="Source language"
+                android:hint="@string/source_language"
                 android:gravity="center"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="50dp"
@@ -83,7 +83,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/auth_border"
                 android:padding="16dp"
-                android:hint="Target language"
+                android:hint="@string/target_language"
                 android:gravity="center"
                 android:textColor="@android:color/black"/>
         </LinearLayout>
@@ -96,7 +96,7 @@
             android:background="@drawable/auth_border"
             android:layout_marginTop="20dp"
             android:padding="16dp"
-            android:hint="Source text"
+            android:hint="@string/source_text"
             android:gravity="start"
             android:textColor="@android:color/black"/>
 
@@ -108,12 +108,11 @@
             android:background="@drawable/auth_border"
             android:layout_marginTop="20dp"
             android:padding="16dp"
-            android:hint="Target text"
+            android:hint="@string/target_text"
             android:gravity="start"
             android:textColor="@android:color/black"/>
-
-
     </LinearLayout>
+
     <!--    Bottom Navigation-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
